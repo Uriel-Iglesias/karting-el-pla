@@ -84,6 +84,25 @@
   .lang-menu { opacity:0; visibility:hidden; transform: translateY(6px); transition: all .18s ease; }
   .lang-menu.open { opacity:1; visibility:visible; transform: none; }
 
+  /* people picker */
+  .people-row { animation: fade-up .35s cubic-bezier(0.16,1,0.3,1); }
+  .ppl-quick button { transition: all .15s ease; }
+  .ppl-quick button.sel { background:#FF3B1D; color:#fff; border-color:#FF3B1D; }
+  .ppl-input::-webkit-outer-spin-button, .ppl-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+  .ppl-input { -moz-appearance:textfield; font-size:16px; }
+
+  /* booking modal + form */
+  #bookModal .modal-card { animation: modal-in .32s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes modal-in { from { opacity:0; transform: translateY(28px);} to {opacity:1; transform:none;} }
+  .field label { display:block; font-size:13px; font-weight:600; color:#A1A1AA; margin-bottom:6px; }
+  .field input, .field textarea { background:#1C1C1F; border:1px solid #2A2A2E; border-radius:10px; color:#F5F5F4; width:100%; padding:.7rem .85rem; font-size:16px; transition:border-color .15s, box-shadow .15s; }
+  .field input::placeholder, .field textarea::placeholder { color:#71717A; }
+  .field input:focus, .field textarea:focus { outline:none; border-color:#FF3B1D; box-shadow:0 0 0 3px rgba(255,59,29,.15); }
+  .field input.err, .field textarea.err { border-color:#FF3B1D; box-shadow:0 0 0 3px rgba(255,59,29,.12); }
+  input[type=date]::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor:pointer; }
+  /* stars */
+  .stars svg { width:1rem; height:1rem; }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal, .reveal.in { animation: none !important; opacity: 1 !important; transform: none !important; }
     .nudge { animation: none !important; }
@@ -322,28 +341,40 @@
       <p data-i18n="motos_p" class="mt-5 text-lg text-muted leading-relaxed">Super Motard i PitBikes sobre el mateix traçat, amb +250 m de terra enllaçable. Equip (granota + casc) per 20€.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-5">
-      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden">
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col">
         <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-supermotard.jpg" alt="Super Motard IMR SK1 250cc" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
-        <div class="p-6">
-          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">SUPER MOTARD</h3><span class="font-display text-3xl text-accent tnum">40<span class="text-lg">€</span></span></div>
-          <p class="text-sm text-muted mt-1" data-i18n="moto_supermotard_sub">IMR SK1 250cc · tanda de 15 min</p>
-          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="supermotard" data-name="Super Motard" data-tandas="1" data-price="40"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-2xl tracking-tight">SUPER MOTARD</h3><p class="text-sm text-muted mt-1" data-i18n="moto_supermotard_sub">IMR SK1 250cc · tandes de 15 min</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">250cc</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="supermotard" data-name="Super Motard">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="40"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">40<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="70"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">70<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="90"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">90<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="150"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">150<span class="text-base text-muted">€</span></p></button>
+          </div>
         </div>
       </article>
-      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden" style="animation-delay:.06s">
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col" style="animation-delay:.06s">
         <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-pitbike.jpg" alt="Moto PitBike PGR Arrow 125" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
-        <div class="p-6">
-          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">MOTO PITBIKE</h3><span class="font-display text-3xl text-accent tnum">20<span class="text-lg">€</span></span></div>
-          <p class="text-sm text-muted mt-1" data-i18n="moto_pitbike_sub">PGR Arrow 125 · tanda de 10 min</p>
-          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="pitbike" data-name="Moto PitBike" data-tandas="1" data-price="20"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-2xl tracking-tight">MOTO PITBIKE</h3><p class="text-sm text-muted mt-1" data-i18n="moto_pitbike_sub">PGR Arrow 125 · tandes de 10 min</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">125cc</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="pitbike" data-name="Moto PitBike">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="20"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">20<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="35"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">35<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="45"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">45<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="75"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">75<span class="text-base text-muted">€</span></p></button>
+          </div>
         </div>
       </article>
-      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden" style="animation-delay:.12s">
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col" style="animation-delay:.12s">
         <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-pitcross.jpg" alt="Moto PitCross PGR Arrow 125" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
-        <div class="p-6">
-          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">MOTO PITCROSS</h3><span class="font-display text-3xl text-accent tnum">20<span class="text-lg">€</span></span></div>
-          <p class="text-sm text-muted mt-1" data-i18n="moto_pitcross_sub">PGR Arrow 125 · tanda de 10 min</p>
-          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="pitcross" data-name="Moto PitCross" data-tandas="1" data-price="20"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-2xl tracking-tight">MOTO PITCROSS</h3><p class="text-sm text-muted mt-1" data-i18n="moto_pitcross_sub">PGR Arrow 125 · tandes de 10 min</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">125cc</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="pitcross" data-name="Moto PitCross">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="20"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">20<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="35"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">35<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="45"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">45<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="75"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">75<span class="text-base text-muted">€</span></p></button>
+          </div>
         </div>
       </article>
     </div>
@@ -371,18 +402,33 @@
 <!-- ============ RESEÑAS ============ -->
 <section id="resenas" class="py-24 md:py-32">
   <div class="mx-auto max-w-7xl px-5 md:px-8">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 reveal">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-16 reveal">
       <div class="max-w-xl"><span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="res_eyebrow">El que diuen els pilots</span><h2 data-i18n-html="res_h2" class="mt-4 font-display text-5xl md:text-7xl leading-[0.95] tracking-tight">4,2★ I MÉS DE<br>400 RESSENYES</h2></div>
-      <div class="flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
-        <div class="text-center"><p class="font-display text-5xl leading-none tnum">4,2</p><div class="flex justify-center text-accent mt-1 text-sm">★★★★<span class="text-subtle">★</span></div></div>
-        <div class="h-12 w-px bg-line"></div>
-        <div class="text-sm text-muted leading-snug"><p class="flex items-center gap-1.5"><svg class="size-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"/></svg> <span data-i18n="res_google">Opinions reals a Google</span></p><p class="mt-1 text-subtle">El Pla de Sant Tirs (Lleida)</p></div>
+      <div class="flex items-center gap-5 rounded-2xl border border-line bg-surface px-6 py-5">
+        <div class="text-center">
+          <p class="font-display text-6xl leading-none tnum">4,2</p>
+          <div class="relative inline-flex mt-2">
+            <div class="flex gap-0.5 text-line">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg>
+            </div>
+            <div class="absolute inset-0 overflow-hidden text-accent" style="width:84%">
+              <div class="flex gap-0.5">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="size-5"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="h-16 w-px bg-line"></div>
+        <div class="text-sm text-muted leading-snug max-w-[170px]"><p class="flex items-center gap-1.5"><svg class="size-4 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"/></svg> <span data-i18n="res_google">Opinions reals a Google</span></p><p class="mt-1 text-subtle">El Pla de Sant Tirs (Lleida)</p></div>
       </div>
     </div>
-    <div class="grid md:grid-cols-3 gap-5">
-      <figure class="reveal rounded-2xl border border-line bg-surface p-7"><div class="flex text-accent text-sm mb-4">★★★★★</div><blockquote data-i18n="res_1" class="text-fg/90 leading-relaxed">"Un dels millors circuits on he rodat. Té una zona ràpida per deixar-te anar i una altra de molt tècnica que enganxa. Hi tornarem segur."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">M</span><div><p class="font-semibold text-sm">Marc V.</p><p class="text-xs text-subtle" data-i18n="res_1m">Local Guide · fa 3 setmanes</p></div></figcaption></figure>
-      <figure class="reveal rounded-2xl border border-line bg-surface p-7" style="animation-delay:.06s"><div class="flex text-accent text-sm mb-4">★★★★★</div><blockquote data-i18n="res_2" class="text-fg/90 leading-relaxed">"El tracte del personal és de 10, et fan sentir de la família. Vam anar amb nens i adults i hi havia kart per a cadascú. L'entorn, espectacular."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">P</span><div><p class="font-semibold text-sm">Patrícia R.</p><p class="text-xs text-subtle" data-i18n="res_2m">fa 1 mes</p></div></figcaption></figure>
-      <figure class="reveal rounded-2xl border border-line bg-surface p-7" style="animation-delay:.12s"><div class="flex text-accent text-sm mb-4">★★★★<span class="text-subtle">★</span></div><blockquote data-i18n="res_3" class="text-fg/90 leading-relaxed">"Circuit llarg de veritat i a 15 min d'Andorra, una passada de lloc. Dies de molta gent toca esperar entre tandes, però la conducció ho val."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">J</span><div><p class="font-semibold text-sm">Jordi S.</p><p class="text-xs text-subtle" data-i18n="res_3m">fa 2 mesos</p></div></figcaption></figure>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_1" class="text-fg/90 leading-relaxed">"Un dels millors circuits on he rodat. Té una zona ràpida per deixar-te anar i una altra de molt tècnica que enganxa. Hi tornarem segur."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">M</span><div><p class="font-semibold text-sm">Marc V.</p><p class="text-xs text-subtle" data-i18n="res_1m">Local Guide · fa 3 setmanes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors" style="animation-delay:.06s"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_2" class="text-fg/90 leading-relaxed">"El tracte del personal és de 10, et fan sentir de la família. Vam anar amb nens i adults i hi havia kart per a cadascú. L'entorn, espectacular."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">P</span><div><p class="font-semibold text-sm">Patrícia R.</p><p class="text-xs text-subtle" data-i18n="res_2m">fa 1 mes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors" style="animation-delay:.12s"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" class="text-line"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_3" class="text-fg/90 leading-relaxed">"Circuit llarg de veritat i a 15 min d'Andorra, una passada de lloc. Dies de molta gent toca esperar entre tandes, però la conducció ho val."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">J</span><div><p class="font-semibold text-sm">Jordi S.</p><p class="text-xs text-subtle" data-i18n="res_3m">fa 2 mesos</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_4" class="text-fg/90 leading-relaxed">"Vam fer l'aniversari del meu fill: cursa amb cronos i podi final. Els nens flipant i el personal genial amb ells. Repetirem fix."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">A</span><div><p class="font-semibold text-sm">Andrea M.</p><p class="text-xs text-subtle" data-i18n="res_4m">fa 3 setmanes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors" style="animation-delay:.06s"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_5" class="text-fg/90 leading-relaxed">"Primera vegada en kart i m'ho van explicar tot abans de sortir. El Super Kart va de gust i em vaig riure moltíssim. Molt recomanable."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">D</span><div><p class="font-semibold text-sm">David C.</p><p class="text-xs text-subtle" data-i18n="res_5m">fa 1 mes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7 hover:border-lineStrong transition-colors" style="animation-delay:.12s"><div class="stars flex gap-0.5 text-accent mb-4"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.78L10 14.77l-5.2 2.73.99-5.78L1.58 7.62l5.82-.85z"/></svg></div><blockquote data-i18n="res_6" class="text-fg/90 leading-relaxed">"De camí a Andorra vam parar a rodar i va ser el millor del cap de setmana. Vistes brutals i karts amb molta canya. Hi tornarem."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-accent/15 text-accent font-display text-lg">N</span><div><p class="font-semibold text-sm">Núria F.</p><p class="text-xs text-subtle" data-i18n="res_6m">fa 2 mesos</p></div></figcaption></figure>
     </div>
     <div class="mt-8 reveal"><a href="https://www.google.com/search?q=Karting+el+Pla+de+Sant+Tirs+rese%C3%B1as" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-fg transition-colors"><span data-i18n="res_seeall">Veure totes les ressenyes a Google</span> <i data-lucide="external-link" class="size-4"></i></a></div>
   </div>
@@ -423,8 +469,10 @@
           <div class="flex items-start gap-4 rounded-xl border border-line bg-surface p-4"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-surface2 border border-line shrink-0"><i data-lucide="clock" class="size-5 text-fg/70"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle" data-i18n="cont_horari">Horari</span><span class="block font-semibold" data-i18n="cont_horari_v">Cada dia · 10:00 – 19:00</span><span class="block text-sm text-muted" data-i18n="cont_horari_v2">De 19:00 a 22:00 amb cita prèvia</span></span></div>
         </div>
       </div>
-      <div class="reveal rounded-2xl overflow-hidden border border-line min-h-[420px] lg:min-h-full">
-        <iframe title="Mapa Karting el Pla" src="https://maps.google.com/maps?q=Karting%20el%20Pla%2C%20C-14%20km%20174%2C%20El%20Pla%20de%20Sant%20Tirs&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-full min-h-[420px]" style="border:0; filter: invert(0.92) hue-rotate(180deg) contrast(0.9);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="reveal relative rounded-2xl overflow-hidden border border-line min-h-[420px] lg:min-h-full">
+        <iframe title="Mapa Karting el Pla" src="https://maps.google.com/maps?q=Karting%20el%20Pla%2C%20C-14%20km%20174%2C%20El%20Pla%20de%20Sant%20Tirs&t=&z=14&ie=UTF8&iwloc=&output=embed" class="w-full h-full min-h-[420px]" style="border:0; filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.92) saturate(0.7);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5 rounded-2xl"></div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Karting%20el%20Pla%2C%20C-14%20km%20174%2C%20El%20Pla%20de%20Sant%20Tirs" target="_blank" rel="noopener" class="absolute bottom-4 left-4 inline-flex items-center gap-2 h-11 px-4 rounded-xl bg-accent text-white text-sm font-semibold shadow-lg shadow-black/50 hover:bg-accentHover transition-colors active:scale-[0.98]"><i data-lucide="navigation" class="size-4"></i><span data-i18n="cont_directions">Com arribar-hi</span></a>
       </div>
     </div>
   </div>
@@ -455,13 +503,41 @@
         <span class="min-w-0"><span class="block text-xs text-subtle"><span id="orderPeople">0</span> <span id="orderPeopleWord">persones</span></span><span class="block font-display text-2xl tnum leading-none"><span id="orderTotal">0</span>€ <i data-lucide="chevron-up" id="orderChev" class="inline size-4 text-muted align-middle"></i></span></span>
       </button>
       <button id="orderClear" class="hidden sm:inline-flex items-center justify-center size-10 rounded-lg border border-line text-muted hover:text-fg hover:border-lineStrong transition-colors" aria-label="Clear"><i data-lucide="trash-2" class="size-4"></i></button>
-      <a id="orderConfirm" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accentHover transition-colors active:scale-[0.98] shrink-0"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="order_confirm">Confirmar reserva</span></a>
+      <button id="orderConfirm" class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accentHover transition-colors active:scale-[0.98] shrink-0"><i data-lucide="arrow-right" class="size-5"></i><span data-i18n="order_confirm">Continuar</span></button>
     </div>
   </div>
 </div>
 
 <!-- sticky mobile WA (hidden when order active) -->
 <a href="https://wa.me/34610792532" target="_blank" rel="noopener" id="mobileWA" class="sm:hidden fixed bottom-4 inset-x-4 z-40 inline-flex items-center justify-center gap-2.5 h-14 rounded-2xl bg-accent text-white text-base font-semibold shadow-2xl shadow-black/40 active:scale-[0.98] transition-transform"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="mobile_wa">Reservar per WhatsApp</span></a>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div id="bookModal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-ink/80 backdrop-blur-sm" data-close></div>
+  <div class="modal-card absolute inset-x-0 bottom-0 sm:inset-0 sm:m-auto w-full sm:max-w-lg sm:h-fit max-h-[94svh] sm:max-h-[92vh] bg-surface border border-lineStrong rounded-t-2xl sm:rounded-2xl overflow-y-auto">
+    <div class="sticky top-0 z-10 bg-surface/95 backdrop-blur px-6 py-4 border-b border-line flex items-center justify-between">
+      <h3 class="font-display text-2xl tracking-tight" data-i18n="modal_title">Completa la teva reserva</h3>
+      <button data-close aria-label="close" class="size-9 inline-flex items-center justify-center rounded-lg border border-line text-muted hover:text-fg hover:border-lineStrong transition-colors"><i data-lucide="x" class="size-5"></i></button>
+    </div>
+    <div class="p-6">
+      <div id="modalSummary" class="rounded-xl border border-line bg-surface2/40 p-4 mb-6 text-sm"></div>
+      <form id="bookForm" novalidate class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="field"><label for="f_name" data-i18n="f_name">Nom i cognoms</label><input id="f_name" name="name" required autocomplete="name" placeholder="Joan Garcia"></div>
+          <div class="field"><label for="f_phone" data-i18n="f_phone">Telèfon</label><input id="f_phone" name="phone" type="tel" required autocomplete="tel" placeholder="+34 600 000 000"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="field"><label for="f_email" data-i18n="f_email">Email</label><input id="f_email" name="email" type="email" required autocomplete="email" placeholder="tu@email.com"></div>
+          <div class="field"><label for="f_date" data-i18n="f_date">Data</label><input id="f_date" name="date" type="date" required></div>
+        </div>
+        <div class="field"><label for="f_msg" data-i18n="f_msg">Missatge (opcional)</label><textarea id="f_msg" name="message" rows="3" data-i18n-ph="f_msg_ph" placeholder="Hora preferida, dubtes..."></textarea></div>
+        <p id="formError" class="hidden text-sm text-accent flex items-center gap-1.5"><i data-lucide="alert-circle" class="size-4 shrink-0"></i><span data-i18n="f_required">Completa els camps obligatoris.</span></p>
+        <button type="submit" class="w-full inline-flex items-center justify-center gap-2.5 h-13 rounded-xl bg-accent text-white text-base font-semibold hover:bg-accentHover transition-colors active:scale-[0.98]"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="modal_submit">Enviar reserva per WhatsApp</span></button>
+        <p class="text-xs text-subtle text-center" data-i18n="modal_note">T'obrirem WhatsApp amb tot omplert per confirmar.</p>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- ============ SCRIPTS ============ -->
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -493,6 +569,13 @@ const I18N = {
     footer_tag:"El circuit de karting a l'aire lliure més llarg de Catalunya. 1.400 m, 4 traçats i karts per a tota la família, al Pirineu de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacte", footer_circuit:"El circuit", footer_made:"Fet amb asfalt, muntanya i molta velocitat.",
     order_label:"La teva reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar per WhatsApp",
     people_one:"persona", people_other:"persones", wa_people:"Persones",
+    ppl_label:"Quantes persones?", ppl_more:"o més",
+    modal_title:"Completa la teva reserva", modal_submit:"Enviar reserva per WhatsApp", modal_note:"T'obrirem WhatsApp amb tot omplert per confirmar.",
+    f_name:"Nom i cognoms", f_phone:"Telèfon", f_email:"Email", f_date:"Data", f_msg:"Missatge (opcional)", f_msg_ph:"Hora preferida, dubtes...", f_msg_lbl:"Missatge", f_required:"Completa els camps obligatoris.",
+    cont_directions:"Com arribar-hi",
+    res_4:"\"Vam fer l'aniversari del meu fill: cursa amb cronos i podi final. Els nens flipant i el personal genial amb ells. Repetirem fix.\"", res_4m:"fa 3 setmanes",
+    res_5:"\"Primera vegada en kart i m'ho van explicar tot abans de sortir. El Super Kart va de gust i em vaig riure moltíssim. Molt recomanable.\"", res_5m:"fa 1 mes",
+    res_6:"\"De camí a Andorra vam parar a rodar i va ser el millor del cap de setmana. Vistes brutals i karts amb molta canya. Hi tornarem.\"", res_6m:"fa 2 mesos",
     wa_greeting:"Hola! Vull reservar a Karting el Pla:", wa_total:"Total"
   },
   es: {
@@ -520,6 +603,13 @@ const I18N = {
     footer_tag:"El circuito de karting al aire libre más largo de Catalunya. 1.400 m, 4 trazados y karts para toda la familia, en el Pirineo de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacto", footer_circuit:"El circuito", footer_made:"Hecho con asfalto, montaña y mucha velocidad.",
     order_label:"Tu reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar por WhatsApp",
     people_one:"persona", people_other:"personas", wa_people:"Personas",
+    ppl_label:"¿Cuántas personas?", ppl_more:"o más",
+    modal_title:"Completa tu reserva", modal_submit:"Enviar reserva por WhatsApp", modal_note:"Te abriremos WhatsApp con todo rellenado para confirmar.",
+    f_name:"Nombre y apellidos", f_phone:"Teléfono", f_email:"Email", f_date:"Fecha", f_msg:"Mensaje (opcional)", f_msg_ph:"Hora preferida, dudas...", f_msg_lbl:"Mensaje", f_required:"Completa los campos obligatorios.",
+    cont_directions:"Cómo llegar",
+    res_4:"\"Hicimos el cumple de mi hijo: carrera con cronos y podio final. Los niños flipando y el personal genial con ellos. Repetiremos fijo.\"", res_4m:"hace 3 semanas",
+    res_5:"\"Primera vez en kart y me lo explicaron todo antes de salir. El Super Kart va de gusto y me reí muchísimo. Muy recomendable.\"", res_5m:"hace 1 mes",
+    res_6:"\"De camino a Andorra paramos a rodar y fue lo mejor del finde. Vistas brutales y karts con mucha caña. Volveremos.\"", res_6m:"hace 2 meses",
     wa_greeting:"¡Hola! Quiero reservar en Karting el Pla:", wa_total:"Total"
   },
   en: {
@@ -547,6 +637,13 @@ const I18N = {
     footer_tag:"The longest outdoor karting circuit in Catalonia. 1,400 m, 4 layouts and karts for the whole family, in the Lleida Pyrenees.", footer_c1:"Track", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"The circuit", footer_made:"Made with tarmac, mountains and a lot of speed.",
     order_label:"Your booking", order_confirm:"Confirm booking", mobile_wa:"Book on WhatsApp",
     people_one:"person", people_other:"people", wa_people:"People",
+    ppl_label:"How many people?", ppl_more:"or more",
+    modal_title:"Complete your booking", modal_submit:"Send booking via WhatsApp", modal_note:"We'll open WhatsApp with everything filled in to confirm.",
+    f_name:"Full name", f_phone:"Phone", f_email:"Email", f_date:"Date", f_msg:"Message (optional)", f_msg_ph:"Preferred time, questions...", f_msg_lbl:"Message", f_required:"Please fill in the required fields.",
+    cont_directions:"Get directions",
+    res_4:"\"We held my son's birthday: a timed race with a final podium. The kids loved it and the staff were great with them. We'll be back for sure.\"", res_4m:"3 weeks ago",
+    res_5:"\"First time in a kart and they explained everything before going out. The Super Kart is a blast and I laughed so much. Highly recommended.\"", res_5m:"1 month ago",
+    res_6:"\"On the way to Andorra we stopped to drive and it was the best of the weekend. Amazing views and punchy karts. We'll be back.\"", res_6m:"2 months ago",
     wa_greeting:"Hi! I'd like to book at Karting el Pla:", wa_total:"Total"
   },
   fr: {
@@ -574,6 +671,13 @@ const I18N = {
     footer_tag:"Le circuit de karting en plein air le plus long de Catalogne. 1 400 m, 4 tracés et des karts pour toute la famille, dans les Pyrénées de Lleida.", footer_c1:"Piste", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"Le circuit", footer_made:"Fait d'asphalte, de montagne et de beaucoup de vitesse.",
     order_label:"Ta réservation", order_confirm:"Confirmer la réservation", mobile_wa:"Réserver sur WhatsApp",
     people_one:"personne", people_other:"personnes", wa_people:"Personnes",
+    ppl_label:"Combien de personnes ?", ppl_more:"ou plus",
+    modal_title:"Complète ta réservation", modal_submit:"Envoyer la réservation sur WhatsApp", modal_note:"On ouvrira WhatsApp avec tout pré-rempli pour confirmer.",
+    f_name:"Nom et prénom", f_phone:"Téléphone", f_email:"Email", f_date:"Date", f_msg:"Message (optionnel)", f_msg_ph:"Heure préférée, questions...", f_msg_lbl:"Message", f_required:"Remplis les champs obligatoires.",
+    cont_directions:"Itinéraire",
+    res_4:"\"On a fait l'anniversaire de mon fils : course chronométrée et podium final. Les enfants ravis et le personnel super avec eux. On reviendra, c'est sûr.\"", res_4m:"il y a 3 semaines",
+    res_5:"\"Première fois en kart et on m'a tout expliqué avant de partir. Le Super Kart est un régal et j'ai énormément ri. Très recommandé.\"", res_5m:"il y a 1 mois",
+    res_6:"\"En route vers Andorre on s'est arrêtés rouler et c'était le meilleur du week-end. Vues magnifiques et karts qui ont du répondant. On reviendra.\"", res_6m:"il y a 2 mois",
     wa_greeting:"Bonjour ! Je souhaite réserver à Karting el Pla :", wa_total:"Total"
   },
   de: {
@@ -601,6 +705,13 @@ const I18N = {
     footer_tag:"Die längste Outdoor-Kartstrecke Kataloniens. 1.400 m, 4 Layouts und Karts für die ganze Familie, in den Pyrenäen von Lleida.", footer_c1:"Strecke", footer_c2:"Info", footer_c3:"Kontakt", footer_circuit:"Die Strecke", footer_made:"Gemacht aus Asphalt, Bergen und viel Geschwindigkeit.",
     order_label:"Deine Buchung", order_confirm:"Buchung bestätigen", mobile_wa:"Auf WhatsApp buchen",
     people_one:"Person", people_other:"Personen", wa_people:"Personen",
+    ppl_label:"Wie viele Personen?", ppl_more:"oder mehr",
+    modal_title:"Buchung abschließen", modal_submit:"Buchung per WhatsApp senden", modal_note:"Wir öffnen WhatsApp mit allem ausgefüllt zum Bestätigen.",
+    f_name:"Vor- und Nachname", f_phone:"Telefon", f_email:"E-Mail", f_date:"Datum", f_msg:"Nachricht (optional)", f_msg_ph:"Wunschzeit, Fragen...", f_msg_lbl:"Nachricht", f_required:"Bitte fülle die Pflichtfelder aus.",
+    cont_directions:"Route",
+    res_4:"\"Wir haben den Geburtstag meines Sohnes gefeiert: Rennen mit Zeitnahme und Podium am Ende. Die Kinder begeistert und das Personal super mit ihnen. Wir kommen sicher wieder.\"", res_4m:"vor 3 Wochen",
+    res_5:"\"Das erste Mal im Kart und sie haben vor dem Start alles erklärt. Das Super Kart macht riesig Spaß und ich habe so gelacht. Sehr zu empfehlen.\"", res_5m:"vor 1 Monat",
+    res_6:"\"Auf dem Weg nach Andorra hielten wir zum Fahren an und es war das Beste am Wochenende. Tolle Aussichten und kräftige Karts. Wir kommen wieder.\"", res_6m:"vor 2 Monaten",
     wa_greeting:"Hallo! Ich möchte bei Karting el Pla buchen:", wa_total:"Gesamt"
   }
 };
@@ -615,10 +726,15 @@ function applyLang(lang){
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent=d[k]; });
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{ const k=el.getAttribute('data-i18n-html'); if(d[k]!=null) el.innerHTML=d[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ const k=el.getAttribute('data-i18n-ph'); if(d[k]!=null) el.placeholder=d[k]; });
+  document.querySelectorAll('.ppl-label').forEach(el=> { if(d.ppl_label) el.textContent=d.ppl_label; });
+  document.querySelectorAll('.ppl-more').forEach(el=> { if(d.ppl_more) el.textContent=d.ppl_more; });
   document.getElementById('langCur').textContent = lang.toUpperCase();
   localStorage.setItem('kep_lang', lang);
   curLang = lang;
   renderOrder();
+  const modal = document.getElementById('bookModal');
+  if(modal && !modal.classList.contains('hidden')) buildSummary();
 }
 
 /* ---------- ORDER / configurator ---------- */
@@ -626,7 +742,57 @@ const order = new Map(); // kartId -> {name, tandas, unit, qty}
 function fmtTanda(n, lang){ const d=I18N[lang]||I18N.es; return (n>1? d.tanda_word_pl : d.tanda_word); }
 function orderPrice(){ let t=0; order.forEach(i=>t+=i.unit*i.qty); return t; }
 function orderPeople(){ let p=0; order.forEach(i=>p+=i.qty); return p; }
-function removeKart(id){ order.delete(id); document.querySelectorAll(`.price-grid[data-kart="${id}"] .tanda-btn, .add-btn[data-kart="${id}"]`).forEach(b=> b.classList.remove('sel')); }
+function removeKart(id){ order.delete(id); }
+function setKart(id, name, tandas, unit){
+  const cur = order.get(id);
+  if(cur && cur.tandas===tandas){ order.delete(id); }       // toggle the same option off
+  else if(cur){ cur.tandas=tandas; cur.unit=unit; }          // switch tandas, keep people
+  else { order.set(id, {name, tandas, unit, qty:1}); }       // new item, 1 person
+}
+function setQty(id, q){ const it=order.get(id); if(it) it.qty = Math.max(1, q|0); }
+
+// inject an inline "how many people?" picker under every price grid (karts + motos)
+function buildPeopleRows(){
+  const d = I18N[curLang]||I18N.es;
+  document.querySelectorAll('.price-grid[data-kart]').forEach(grid=>{
+    if(grid.parentElement.querySelector('.people-row')) return;
+    const id = grid.dataset.kart;
+    const row = document.createElement('div');
+    row.className = 'people-row mt-4 pt-4 border-t border-line hidden';
+    row.dataset.ppl = id;
+    row.innerHTML = `
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-sm font-medium flex items-center gap-2"><i data-lucide="users" class="size-4 text-accent"></i><span class="ppl-label">${d.ppl_label}</span></span>
+        <span class="inline-flex items-center rounded-lg border border-lineStrong overflow-hidden">
+          <button type="button" class="ppl-dec size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">−</button>
+          <input class="ppl-input w-12 h-9 bg-transparent text-center font-semibold tnum outline-none" type="number" min="1" value="1" inputmode="numeric" aria-label="people">
+          <button type="button" class="ppl-inc size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">+</button>
+        </span>
+      </div>
+      <div class="ppl-quick mt-2.5 flex items-center gap-1.5">
+        ${[1,2,3,4].map(n=>`<button type="button" data-ppl-set="${n}" class="h-8 w-9 inline-flex items-center justify-center rounded-lg border border-line text-sm font-semibold text-muted hover:text-fg hover:border-lineStrong transition">${n}</button>`).join('')}
+        <span class="ppl-more text-xs text-subtle ml-1">${d.ppl_more}</span>
+      </div>`;
+    grid.insertAdjacentElement('afterend', row);
+  });
+}
+
+// reflect order state into every card (selected cell + people row + input)
+function syncUI(){
+  document.querySelectorAll('.price-grid[data-kart]').forEach(grid=>{
+    const id = grid.dataset.kart, it = order.get(id);
+    grid.querySelectorAll('.tanda-btn').forEach(b=> b.classList.toggle('sel', !!it && +b.dataset.tandas===it.tandas));
+    const row = grid.parentElement.querySelector(`.people-row[data-ppl="${id}"]`);
+    if(row){
+      row.classList.toggle('hidden', !it);
+      if(it){
+        const inp = row.querySelector('.ppl-input'); if(document.activeElement!==inp) inp.value = it.qty;
+        row.querySelectorAll('[data-ppl-set]').forEach(c=> c.classList.toggle('sel', +c.dataset.pplSet===it.qty));
+      }
+    }
+  });
+  renderOrder();
+}
 
 function renderOrder(){
   const bar = document.getElementById('orderBar');
@@ -636,44 +802,38 @@ function renderOrder(){
   document.getElementById('orderPeople').textContent = people;
   document.getElementById('orderPeopleWord').textContent = (people===1? d.people_one : d.people_other);
   document.getElementById('orderTotal').textContent = orderPrice();
-  // items list with people (qty) steppers
   let html = '';
   order.forEach((it, id)=>{
-    html += `<div class="flex items-center justify-between gap-2 py-2.5 border-b border-line last:border-0 text-sm">
-      <span class="min-w-0 flex-1 truncate"><span class="font-semibold">${it.name}</span> <span class="text-muted">· ${it.tandas} ${fmtTanda(it.tandas, curLang)}</span></span>
-      <span class="flex items-center gap-2 shrink-0">
-        <span class="inline-flex items-center rounded-lg border border-line">
-          <button data-qdec="${id}" aria-label="-" class="size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">−</button>
-          <span class="w-6 text-center font-semibold tnum">${it.qty}</span>
-          <button data-qinc="${id}" aria-label="+" class="size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">+</button>
-        </span>
-        <span class="w-12 text-right font-display tnum">${it.unit*it.qty}€</span>
-        <button data-remove="${id}" aria-label="x" class="size-8 inline-flex items-center justify-center rounded-md text-subtle hover:text-accent transition-colors">✕</button>
-      </span></div>`;
+    const q = it.qty>1 ? ` <span class="text-subtle">× ${it.qty}</span>` : '';
+    html += `<div class="flex items-center justify-between gap-3 py-2.5 border-b border-line last:border-0 text-sm">
+      <span class="min-w-0 flex-1 truncate"><span class="font-semibold">${it.name}</span> <span class="text-muted">· ${it.tandas} ${fmtTanda(it.tandas, curLang)}</span>${q}</span>
+      <span class="flex items-center gap-3 shrink-0"><span class="font-display tnum">${it.unit*it.qty}€</span>
+      <button data-remove="${id}" aria-label="remove" class="size-7 inline-flex items-center justify-center rounded-md text-subtle hover:text-accent transition-colors">✕</button></span></div>`;
   });
   document.getElementById('orderItems').innerHTML = html;
-  // confirm link
-  const conf = document.getElementById('orderConfirm');
-  if(order.size>0){
-    let lines = [];
-    order.forEach(it=>{ const q = it.qty>1 ? ` × ${it.qty}` : ''; lines.push(`• ${it.name} · ${it.tandas} ${fmtTanda(it.tandas, curLang)}${q} · ${it.unit*it.qty}€`); });
-    const msg = `${d.wa_greeting}\n${lines.join('\n')}\n${d.wa_people}: ${people}\n${d.wa_total}: ${orderPrice()}€`;
-    conf.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-    bar.classList.add('show');
-    document.getElementById('mobileWA').style.display='none';
-  } else {
-    bar.classList.remove('show');
-    document.getElementById('orderItems').classList.add('hidden');
-    document.getElementById('orderChev').style.transform='';
-    const mWA = document.getElementById('mobileWA'); if(mWA) mWA.style.display='';
-  }
+  if(order.size>0){ bar.classList.add('show'); document.getElementById('mobileWA').style.display='none'; }
+  else { bar.classList.remove('show'); document.getElementById('orderItems').classList.add('hidden'); document.getElementById('orderChev').style.transform=''; const m=document.getElementById('mobileWA'); if(m) m.style.display=''; }
 }
 
-function setKart(id, name, tandas, unit){
-  const cur = order.get(id);
-  if(cur && cur.tandas===tandas){ order.delete(id); }       // toggle the same option off
-  else if(cur){ cur.tandas=tandas; cur.unit=unit; }          // switch tandas, keep people
-  else { order.set(id, {name, tandas, unit, qty:1}); }       // new item, 1 person
+// full WhatsApp message = order + contact data
+function buildMessage(form){
+  const d = I18N[curLang]||I18N.es;
+  let lines = [];
+  order.forEach(it=>{ const q = it.qty>1 ? ` × ${it.qty}` : ''; lines.push(`• ${it.name} · ${it.tandas} ${fmtTanda(it.tandas, curLang)}${q} · ${it.unit*it.qty}€`); });
+  let msg = `${d.wa_greeting}\n${lines.join('\n')}\n${d.wa_people}: ${orderPeople()}\n${d.wa_total}: ${orderPrice()}€`;
+  if(form){
+    msg += `\n\n${d.f_name}: ${form.name}\n${d.f_phone}: ${form.phone}\n${d.f_email}: ${form.email}\n${d.f_date}: ${form.date}`;
+    if(form.message) msg += `\n${d.f_msg_lbl}: ${form.message}`;
+  }
+  return msg;
+}
+
+function buildSummary(){
+  const d = I18N[curLang]||I18N.es;
+  let html = '';
+  order.forEach(it=>{ const q = it.qty>1 ? ` × ${it.qty}` : ''; html += `<div class="flex justify-between gap-3 py-1"><span class="text-muted truncate">${it.name} · ${it.tandas} ${fmtTanda(it.tandas,curLang)}${q}</span><span class="font-display tnum shrink-0">${it.unit*it.qty}€</span></div>`; });
+  html += `<div class="flex justify-between gap-3 pt-2 mt-1 border-t border-line"><span class="font-semibold">${orderPeople()} ${orderPeople()===1?d.people_one:d.people_other}</span><span class="font-display text-xl tnum text-accent">${orderPrice()}€</span></div>`;
+  document.getElementById('modalSummary').innerHTML = html;
 }
 
 /* ---------- init after DOM ---------- */
@@ -692,48 +852,63 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('click', ()=> langMenu.classList.remove('open'));
   document.querySelectorAll('.lang-opt').forEach(b=> b.addEventListener('click', ()=>{ applyLang(b.dataset.lang); langMenu.classList.remove('open'); }));
 
-  // tanda buttons (karts)
+  // build inline people pickers under every grid, then render their icons
+  buildPeopleRows();
+  if(window.lucide) lucide.createIcons();
+
+  // tanda buttons (karts + motos) → toggle selection, then sync the whole UI
   document.querySelectorAll('.price-grid[data-kart]').forEach(grid=>{
     const id = grid.dataset.kart, name = grid.dataset.name;
     grid.querySelectorAll('.tanda-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const tandas = +btn.dataset.tandas, price = +btn.dataset.price;
-        setKart(id, name, tandas, price);
-        const sel = order.has(id) && order.get(id).tandas===tandas;
-        grid.querySelectorAll('.tanda-btn').forEach(b=> b.classList.remove('sel'));
-        if(sel) btn.classList.add('sel');
-        renderOrder();
-      });
-    });
-  });
-  // moto add buttons
-  document.querySelectorAll('.add-btn[data-kart]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const id=btn.dataset.kart, name=btn.dataset.name, tandas=+btn.dataset.tandas, price=+btn.dataset.price;
-      setKart(id, name, tandas, price);
-      btn.classList.toggle('sel', order.has(id));
-      renderOrder();
+      btn.addEventListener('click', ()=>{ setKart(id, name, +btn.dataset.tandas, +btn.dataset.price); syncUI(); });
     });
   });
 
-  // order bar interactions
-  document.getElementById('orderToggle').addEventListener('click', ()=>{
-    const items=document.getElementById('orderItems'); const chev=document.getElementById('orderChev');
-    const willShow = items.classList.contains('hidden');
-    items.classList.toggle('hidden', !willShow);
-    chev.style.transform = willShow ? 'rotate(180deg)' : '';
-  });
-  document.getElementById('orderClear').addEventListener('click', ()=>{
-    order.clear();
-    document.querySelectorAll('.tanda-btn.sel,.add-btn.sel').forEach(b=> b.classList.remove('sel'));
+  // inline people picker (delegated on the tandas + motos sections)
+  function handlePeopleClick(e){
+    const row = e.target.closest('.people-row'); if(!row) return;
+    const id = row.dataset.ppl, it = order.get(id); if(!it) return;
+    if(e.target.closest('.ppl-dec')) setQty(id, it.qty-1);
+    else if(e.target.closest('.ppl-inc')) setQty(id, it.qty+1);
+    else { const q = e.target.closest('[data-ppl-set]'); if(!q) return; setQty(id, +q.dataset.pplSet); }
+    syncUI();
+  }
+  function handlePeopleInput(e){
+    if(!e.target.classList || !e.target.classList.contains('ppl-input')) return;
+    const row = e.target.closest('.people-row'), id = row.dataset.ppl, it = order.get(id); if(!it) return;
+    let v = parseInt(e.target.value,10); if(isNaN(v)||v<1) v=1; it.qty=v;
+    row.querySelectorAll('[data-ppl-set]').forEach(c=> c.classList.toggle('sel', +c.dataset.pplSet===it.qty));
     renderOrder();
+  }
+  ['tandas','motos'].forEach(sid=>{ const s=document.getElementById(sid); if(!s) return; s.addEventListener('click', handlePeopleClick); s.addEventListener('input', handlePeopleInput); });
+
+  // order bar
+  document.getElementById('orderToggle').addEventListener('click', ()=>{ const items=document.getElementById('orderItems'), chev=document.getElementById('orderChev'); const willShow=items.classList.contains('hidden'); items.classList.toggle('hidden', !willShow); chev.style.transform = willShow ? 'rotate(180deg)' : ''; });
+  document.getElementById('orderClear').addEventListener('click', ()=>{ order.clear(); syncUI(); });
+  document.getElementById('orderItems').addEventListener('click', (e)=>{ const rm=e.target.closest('[data-remove]'); if(rm){ removeKart(rm.getAttribute('data-remove')); syncUI(); } });
+
+  // booking modal
+  const modal = document.getElementById('bookModal');
+  function openModal(){ if(order.size===0) return; buildSummary(); const dt=document.getElementById('f_date'); const t=new Date(); dt.min=`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`; modal.classList.remove('hidden'); document.body.style.overflow='hidden'; if(window.lucide) lucide.createIcons(); }
+  function closeModal(){ modal.classList.add('hidden'); document.body.style.overflow=''; }
+  document.getElementById('orderConfirm').addEventListener('click', openModal);
+  modal.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
+  const form = document.getElementById('bookForm');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const val = n => (form.elements[n] ? form.elements[n].value : '');
+    const data = { name:val('name').trim(), phone:val('phone').trim(), email:val('email').trim(), date:val('date'), message:val('message').trim() };
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+    let bad=false;
+    [['name',!!data.name],['phone',!!data.phone],['email',emailOk],['date',!!data.date]].forEach(([n,ok])=>{ if(form.elements[n]) form.elements[n].classList.toggle('err',!ok); if(!ok) bad=true; });
+    const err=document.getElementById('formError');
+    if(bad){ err.classList.remove('hidden'); return; }
+    err.classList.add('hidden');
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`, '_blank');
+    closeModal();
   });
-  document.getElementById('orderItems').addEventListener('click', (e)=>{
-    const inc = e.target.closest('[data-qinc]'), dec = e.target.closest('[data-qdec]'), rm = e.target.closest('[data-remove]');
-    if(inc){ const it=order.get(inc.dataset.qinc); if(it){ it.qty++; renderOrder(); } return; }
-    if(dec){ const id=dec.dataset.qdec, it=order.get(id); if(it){ it.qty--; if(it.qty<=0) removeKart(id); renderOrder(); } return; }
-    if(rm){ removeKart(rm.getAttribute('data-remove')); renderOrder(); }
-  });
+  form.addEventListener('input', e=>{ if(e.target.classList && e.target.classList.contains('err')) e.target.classList.remove('err'); });
 
   // reveal
   const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {rootMargin:'-60px'});
