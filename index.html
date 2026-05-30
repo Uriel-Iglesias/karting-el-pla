@@ -63,8 +63,7 @@
   .price-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
 
   /* Hero scroll-scrub */
-  #heroSticky { background-size: cover; background-position: center; }
-  #heroCanvas { display:block; }
+  #heroMedia { will-change: transform, opacity; }
 
   /* Selectable tanda buttons */
   .tanda-btn { transition: all .18s ease; cursor: pointer; }
@@ -151,45 +150,45 @@
 </header>
 
 <!-- ============ HERO (scroll-scrub frames) ============ -->
-<section id="top" style="height: 240vh;" class="relative">
-  <div id="heroSticky" class="sticky top-0 h-[100svh] w-full overflow-hidden" style="background-image:url('assets/frames/f-001.jpg')">
-    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full"></canvas>
-    <div class="absolute inset-0 z-10 bg-gradient-to-t from-ink via-ink/35 to-ink/30"></div>
-    <div class="absolute inset-0 z-10 bg-gradient-to-r from-ink/80 via-transparent to-transparent"></div>
+<section id="top" class="relative min-h-[100svh] flex items-end overflow-hidden">
+  <div id="heroMedia" class="absolute inset-0 z-0">
+    <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="assets/hero-aerial.jpg">
+      <source src="assets/transition.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="absolute inset-0 z-10 bg-gradient-to-t from-ink via-ink/35 to-ink/30"></div>
+  <div class="absolute inset-0 z-10 bg-gradient-to-r from-ink/80 via-transparent to-transparent"></div>
 
-    <div class="absolute inset-x-0 bottom-0 z-20">
-      <div class="mx-auto max-w-7xl w-full px-5 md:px-8 pb-16 md:pb-20">
-        <div id="heroText" class="max-w-3xl">
-          <p class="flex items-center gap-2 text-xs font-medium tracking-[0.14em] uppercase text-muted mb-5">
-            <i data-lucide="mountain" class="size-4 text-accent"></i><span data-i18n="hero_eyebrow">Pirineu de Lleida · a 15 min d'Andorra</span>
-          </p>
-          <h1 data-i18n-html="hero_h1" class="font-display text-[14vw] sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-[0.92] tracking-tight">
-            1.400 METRES.<br><span class="text-accent">TU</span> CONTRA EL CRONO.
-          </h1>
-          <div class="mt-5 h-px bg-gradient-to-r from-accent to-transparent" style="animation: speedline 1.2s .3s both;"></div>
-          <p data-i18n="hero_sub" class="mt-6 text-lg md:text-xl text-fg/90 leading-relaxed max-w-xl">
-            El circuit de karting a l'aire lliure més llarg de Catalunya. Del primer kart als 7 anys al Rotax de 30 CV. Reserva la teva tanda i baixa a pista.
-          </p>
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#tandas" class="inline-flex items-center justify-center gap-2.5 h-13 md:h-14 px-7 rounded-[11px] bg-accent text-white text-base font-semibold hover:bg-accentHover transition-all active:scale-[0.98] shadow-lg shadow-accent/20">
-              <i data-lucide="flag" class="size-5"></i><span data-i18n="hero_cta1">Munta la teva reserva</span>
-            </a>
-            <a href="#experiencia" class="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-[11px] bg-white/10 backdrop-blur-sm text-fg text-base font-semibold border border-white/15 hover:bg-white/15 transition-all active:scale-[0.98]">
-              <span data-i18n="hero_cta2">Descobreix el circuit</span> <i data-lucide="arrow-down" class="size-4"></i>
-            </a>
-          </div>
-          <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-            <span class="flex items-center gap-1.5"><span class="flex text-accent">★★★★<span class="text-subtle">★</span></span><span class="font-semibold tnum">4,2</span><span class="text-muted" data-i18n="hero_trust_google">a Google · 400+ ressenyes</span></span>
-            <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
-            <span class="text-muted flex items-center gap-1.5"><i data-lucide="route" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_trazados">4 traçats</span></span>
-            <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
-            <span class="text-muted flex items-center gap-1.5"><i data-lucide="gauge" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_cv">fins a 30 CV</span></span>
-          </div>
-        </div>
+  <div class="relative z-20 mx-auto max-w-7xl w-full px-5 md:px-8 pb-16 md:pb-24 pt-28">
+    <div class="max-w-3xl">
+      <p class="flex items-center gap-2 text-xs font-medium tracking-[0.14em] uppercase text-muted mb-5">
+        <i data-lucide="mountain" class="size-4 text-accent"></i><span data-i18n="hero_eyebrow">Pirineu de Lleida · a 15 min d'Andorra</span>
+      </p>
+      <h1 data-i18n-html="hero_h1" class="font-display text-[14vw] sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-[0.92] tracking-tight">
+        1.400 METRES.<br><span class="text-accent">TU</span> CONTRA EL CRONO.
+      </h1>
+      <div class="mt-5 h-px bg-gradient-to-r from-accent to-transparent" style="animation: speedline 1.2s .3s both;"></div>
+      <p data-i18n="hero_sub" class="mt-6 text-lg md:text-xl text-fg/90 leading-relaxed max-w-xl">
+        El circuit de karting a l'aire lliure més llarg de Catalunya. Del primer kart als 7 anys al Rotax de 30 CV. Reserva la teva tanda i baixa a pista.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="#tandas" class="inline-flex items-center justify-center gap-2.5 h-13 md:h-14 px-7 rounded-[11px] bg-accent text-white text-base font-semibold hover:bg-accentHover transition-all active:scale-[0.98] shadow-lg shadow-accent/20">
+          <i data-lucide="flag" class="size-5"></i><span data-i18n="hero_cta1">Munta la teva reserva</span>
+        </a>
+        <a href="#experiencia" class="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-[11px] bg-white/10 backdrop-blur-sm text-fg text-base font-semibold border border-white/15 hover:bg-white/15 transition-all active:scale-[0.98]">
+          <span data-i18n="hero_cta2">Descobreix el circuit</span> <i data-lucide="arrow-down" class="size-4"></i>
+        </a>
+      </div>
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+        <span class="flex items-center gap-1.5"><span class="flex text-accent">★★★★<span class="text-subtle">★</span></span><span class="font-semibold tnum">4,2</span><span class="text-muted" data-i18n="hero_trust_google">a Google · 400+ ressenyes</span></span>
+        <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
+        <span class="text-muted flex items-center gap-1.5"><i data-lucide="route" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_trazados">4 traçats</span></span>
+        <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
+        <span class="text-muted flex items-center gap-1.5"><i data-lucide="gauge" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_cv">fins a 30 CV</span></span>
       </div>
     </div>
-    <div class="absolute z-20 bottom-6 left-1/2 -translate-x-1/2 text-subtle"><i data-lucide="chevron-down" class="size-7 nudge"></i></div>
   </div>
+  <a href="#stats" class="absolute z-20 bottom-6 left-1/2 -translate-x-1/2 text-subtle hover:text-fg transition-colors"><i data-lucide="chevron-down" class="size-7 nudge"></i></a>
 </section>
 
 <!-- ============ STATS BAR ============ -->
@@ -928,54 +927,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
     requestAnimationFrame(tick); cio.unobserve(el); }); }, {rootMargin:'-40px'});
   document.querySelectorAll('.count').forEach(c=> cio.observe(c));
 
-  /* ---------- HERO scroll-scrub (mobile-optimised) ---------- */
-  const TOTAL = 61;
-  const isMobile = window.matchMedia('(max-width: 767px)').matches;
-  // on mobile load every 2nd frame → ~half the data & memory, still smooth
-  const step = isMobile ? 2 : 1;
-  const indices = []; for(let i=1;i<=TOTAL;i+=step) indices.push(i);
-  if(indices[indices.length-1]!==TOTAL) indices.push(TOTAL);
-  const N = indices.length;
-  const path = i => `assets/frames/f-${String(i).padStart(3,'0')}.jpg`;
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
-  const heroSec = document.getElementById('top');
-  const imgs = []; let lastDrawn = -1;
-
-  function sizeCanvas(){
-    const dpr = Math.min(window.devicePixelRatio||1, 2);
-    canvas.width = Math.round(canvas.clientWidth*dpr);
-    canvas.height = Math.round(canvas.clientHeight*dpr);
-    lastDrawn = -1;
+  /* ---------- HERO: subtle parallax zoom on the background video ---------- */
+  const heroMedia = document.getElementById('heroMedia');
+  if(heroMedia && !reduce){
+    let ticking=false;
+    window.addEventListener('scroll', ()=>{
+      if(ticking) return; ticking=true;
+      requestAnimationFrame(()=>{
+        const y = window.scrollY;
+        if(y < window.innerHeight){
+          const p = Math.min(y/window.innerHeight, 1);
+          heroMedia.style.transform = `scale(${1 + p*0.12})`;
+          heroMedia.style.opacity = `${1 - p*0.35}`;
+        }
+        ticking=false;
+      });
+    }, {passive:true});
   }
-  function draw(idx){
-    const img = imgs[idx];
-    if(!img || !img.complete || !img.naturalWidth) return;
-    if(idx===lastDrawn) return; lastDrawn=idx;
-    const cw=canvas.width, ch=canvas.height, iw=img.naturalWidth, ih=img.naturalHeight;
-    const s=Math.max(cw/iw, ch/ih), w=iw*s, h=ih*s, x=(cw-w)/2, y=(ch-h)/2;
-    ctx.drawImage(img, x, y, w, h);
-  }
-  function currentIndex(){
-    const rect = heroSec.getBoundingClientRect();
-    const scrollable = heroSec.offsetHeight - window.innerHeight;
-    const p = scrollable>0 ? Math.min(Math.max(-rect.top/scrollable,0),1) : 0;
-    return Math.round(p*(N-1));
-  }
-  // shorter hero on mobile so the scrub doesn't feel endless on a small screen
-  if(!reduce && isMobile){ heroSec.style.height='160vh'; }
-  if(reduce){ heroSec.style.height='100svh'; }
-  // preload frame set
-  indices.forEach((fi, k)=>{
-    const im = new Image(); im.decoding='async';
-    im.onload = ()=>{ if(k===0){ sizeCanvas(); draw(0); } };
-    im.src = path(fi); imgs[k]=im;
-  });
-  let ticking=false;
-  function onScrollHero(){ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ draw(currentIndex()); ticking=false; }); }
-  if(!reduce) window.addEventListener('scroll', onScrollHero, {passive:true});
-  window.addEventListener('resize', ()=>{ sizeCanvas(); draw(currentIndex()); }, {passive:true});
-  sizeCanvas();
 });
 </script>
 </body>
