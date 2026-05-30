@@ -33,7 +33,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
 <style>
-  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: #0A0A0B; }
+  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: #0A0A0B; scroll-padding-top: 76px; }
   body { background: #0A0A0B; color: #F5F5F4; overflow-x: hidden; }
   ::selection { background: #FF3B1D; color: #fff; }
   .tnum { font-variant-numeric: tabular-nums; }
@@ -451,8 +451,8 @@
     <div id="orderItems" class="max-h-40 overflow-y-auto px-4 pt-3 hidden"></div>
     <div class="flex items-center gap-3 p-3 sm:p-4">
       <button id="orderToggle" class="flex items-center gap-2 text-left min-w-0 flex-1">
-        <span class="relative inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent text-white"><i data-lucide="flag" class="size-5"></i><span id="orderCount" class="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 inline-flex items-center justify-center rounded-full bg-lime text-ink text-[11px] font-bold tnum">0</span></span>
-        <span class="min-w-0"><span class="block text-xs text-subtle" data-i18n="order_label">La teva reserva</span><span class="block font-display text-2xl tnum leading-none"><span id="orderTotal">0</span>€ <i data-lucide="chevron-up" id="orderChev" class="inline size-4 text-muted align-middle"></i></span></span>
+        <span class="relative inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent text-white"><i data-lucide="users" class="size-5"></i><span id="orderCount" class="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 inline-flex items-center justify-center rounded-full bg-lime text-ink text-[11px] font-bold tnum">0</span></span>
+        <span class="min-w-0"><span class="block text-xs text-subtle"><span id="orderPeople">0</span> <span id="orderPeopleWord">persones</span></span><span class="block font-display text-2xl tnum leading-none"><span id="orderTotal">0</span>€ <i data-lucide="chevron-up" id="orderChev" class="inline size-4 text-muted align-middle"></i></span></span>
       </button>
       <button id="orderClear" class="hidden sm:inline-flex items-center justify-center size-10 rounded-lg border border-line text-muted hover:text-fg hover:border-lineStrong transition-colors" aria-label="Clear"><i data-lucide="trash-2" class="size-4"></i></button>
       <a id="orderConfirm" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accentHover transition-colors active:scale-[0.98] shrink-0"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="order_confirm">Confirmar reserva</span></a>
@@ -492,6 +492,7 @@ const I18N = {
     cont_eyebrow:"Com arribar", cont_h2:"ENS VEIEM<br>A LA GRAELLA", cont_p:"Reserva la teva tanda per WhatsApp en 30 segons. Et confirmem hora i kart a l'instant.", cont_wa:"WhatsApp · reserves", cont_tel:"Telèfon", cont_dir:"Adreça", cont_horari:"Horari", cont_horari_v:"Cada dia · 10:00 – 19:00", cont_horari_v2:"De 19:00 a 22:00 amb cita prèvia",
     footer_tag:"El circuit de karting a l'aire lliure més llarg de Catalunya. 1.400 m, 4 traçats i karts per a tota la família, al Pirineu de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacte", footer_circuit:"El circuit", footer_made:"Fet amb asfalt, muntanya i molta velocitat.",
     order_label:"La teva reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar per WhatsApp",
+    people_one:"persona", people_other:"persones", wa_people:"Persones",
     wa_greeting:"Hola! Vull reservar a Karting el Pla:", wa_total:"Total"
   },
   es: {
@@ -518,6 +519,7 @@ const I18N = {
     cont_eyebrow:"Cómo llegar", cont_h2:"NOS VEMOS<br>EN LA PARRILLA", cont_p:"Reserva tu tanda por WhatsApp en 30 segundos. Te confirmamos hora y kart al momento.", cont_wa:"WhatsApp · reservas", cont_tel:"Teléfono", cont_dir:"Dirección", cont_horari:"Horario", cont_horari_v:"Todos los días · 10:00 – 19:00", cont_horari_v2:"De 19:00 a 22:00 con cita previa",
     footer_tag:"El circuito de karting al aire libre más largo de Catalunya. 1.400 m, 4 trazados y karts para toda la familia, en el Pirineo de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacto", footer_circuit:"El circuito", footer_made:"Hecho con asfalto, montaña y mucha velocidad.",
     order_label:"Tu reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar por WhatsApp",
+    people_one:"persona", people_other:"personas", wa_people:"Personas",
     wa_greeting:"¡Hola! Quiero reservar en Karting el Pla:", wa_total:"Total"
   },
   en: {
@@ -544,6 +546,7 @@ const I18N = {
     cont_eyebrow:"Find us", cont_h2:"SEE YOU<br>ON THE GRID", cont_p:"Book your session on WhatsApp in 30 seconds. We confirm time and kart right away.", cont_wa:"WhatsApp · bookings", cont_tel:"Phone", cont_dir:"Address", cont_horari:"Opening hours", cont_horari_v:"Every day · 10:00 – 19:00", cont_horari_v2:"19:00 to 22:00 by appointment",
     footer_tag:"The longest outdoor karting circuit in Catalonia. 1,400 m, 4 layouts and karts for the whole family, in the Lleida Pyrenees.", footer_c1:"Track", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"The circuit", footer_made:"Made with tarmac, mountains and a lot of speed.",
     order_label:"Your booking", order_confirm:"Confirm booking", mobile_wa:"Book on WhatsApp",
+    people_one:"person", people_other:"people", wa_people:"People",
     wa_greeting:"Hi! I'd like to book at Karting el Pla:", wa_total:"Total"
   },
   fr: {
@@ -570,6 +573,7 @@ const I18N = {
     cont_eyebrow:"Accès", cont_h2:"ON SE VOIT<br>SUR LA GRILLE", cont_p:"Réserve ta session sur WhatsApp en 30 secondes. On confirme l'heure et le kart aussitôt.", cont_wa:"WhatsApp · réservations", cont_tel:"Téléphone", cont_dir:"Adresse", cont_horari:"Horaires", cont_horari_v:"Tous les jours · 10:00 – 19:00", cont_horari_v2:"De 19:00 à 22:00 sur rendez-vous",
     footer_tag:"Le circuit de karting en plein air le plus long de Catalogne. 1 400 m, 4 tracés et des karts pour toute la famille, dans les Pyrénées de Lleida.", footer_c1:"Piste", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"Le circuit", footer_made:"Fait d'asphalte, de montagne et de beaucoup de vitesse.",
     order_label:"Ta réservation", order_confirm:"Confirmer la réservation", mobile_wa:"Réserver sur WhatsApp",
+    people_one:"personne", people_other:"personnes", wa_people:"Personnes",
     wa_greeting:"Bonjour ! Je souhaite réserver à Karting el Pla :", wa_total:"Total"
   },
   de: {
@@ -596,6 +600,7 @@ const I18N = {
     cont_eyebrow:"Anfahrt", cont_h2:"WIR SEHEN UNS<br>IN DER STARTAUFSTELLUNG", cont_p:"Buche deine Session per WhatsApp in 30 Sekunden. Wir bestätigen Zeit und Kart sofort.", cont_wa:"WhatsApp · Buchungen", cont_tel:"Telefon", cont_dir:"Adresse", cont_horari:"Öffnungszeiten", cont_horari_v:"Täglich · 10:00 – 19:00", cont_horari_v2:"19:00 bis 22:00 nach Vereinbarung",
     footer_tag:"Die längste Outdoor-Kartstrecke Kataloniens. 1.400 m, 4 Layouts und Karts für die ganze Familie, in den Pyrenäen von Lleida.", footer_c1:"Strecke", footer_c2:"Info", footer_c3:"Kontakt", footer_circuit:"Die Strecke", footer_made:"Gemacht aus Asphalt, Bergen und viel Geschwindigkeit.",
     order_label:"Deine Buchung", order_confirm:"Buchung bestätigen", mobile_wa:"Auf WhatsApp buchen",
+    people_one:"Person", people_other:"Personen", wa_people:"Personen",
     wa_greeting:"Hallo! Ich möchte bei Karting el Pla buchen:", wa_total:"Gesamt"
   }
 };
@@ -617,33 +622,42 @@ function applyLang(lang){
 }
 
 /* ---------- ORDER / configurator ---------- */
-const order = new Map(); // kartId -> {name, tandas, price, moto}
+const order = new Map(); // kartId -> {name, tandas, unit, qty}
 function fmtTanda(n, lang){ const d=I18N[lang]||I18N.es; return (n>1? d.tanda_word_pl : d.tanda_word); }
-function orderTotal(){ let t=0; order.forEach(i=>t+=i.price); return t; }
+function orderPrice(){ let t=0; order.forEach(i=>t+=i.unit*i.qty); return t; }
+function orderPeople(){ let p=0; order.forEach(i=>p+=i.qty); return p; }
+function removeKart(id){ order.delete(id); document.querySelectorAll(`.price-grid[data-kart="${id}"] .tanda-btn, .add-btn[data-kart="${id}"]`).forEach(b=> b.classList.remove('sel')); }
 
 function renderOrder(){
   const bar = document.getElementById('orderBar');
-  const countEl = document.getElementById('orderCount');
-  const totalEl = document.getElementById('orderTotal');
-  const itemsEl = document.getElementById('orderItems');
   const d = I18N[curLang]||I18N.es;
-  countEl.textContent = order.size;
-  totalEl.textContent = orderTotal();
-  // items list
+  const people = orderPeople();
+  document.getElementById('orderCount').textContent = people;
+  document.getElementById('orderPeople').textContent = people;
+  document.getElementById('orderPeopleWord').textContent = (people===1? d.people_one : d.people_other);
+  document.getElementById('orderTotal').textContent = orderPrice();
+  // items list with people (qty) steppers
   let html = '';
   order.forEach((it, id)=>{
-    html += `<div class="flex items-center justify-between gap-3 py-2 border-b border-line last:border-0 text-sm">
-      <span class="min-w-0 truncate"><span class="font-semibold">${it.name}</span> <span class="text-muted">· ${it.tandas} ${fmtTanda(it.tandas, curLang)}</span></span>
-      <span class="flex items-center gap-3 shrink-0"><span class="font-display tnum">${it.price}€</span>
-      <button data-remove="${id}" class="text-subtle hover:text-accent transition-colors"><i data-lucide="x" class="size-4"></i></button></span></div>`;
+    html += `<div class="flex items-center justify-between gap-2 py-2.5 border-b border-line last:border-0 text-sm">
+      <span class="min-w-0 flex-1 truncate"><span class="font-semibold">${it.name}</span> <span class="text-muted">· ${it.tandas} ${fmtTanda(it.tandas, curLang)}</span></span>
+      <span class="flex items-center gap-2 shrink-0">
+        <span class="inline-flex items-center rounded-lg border border-line">
+          <button data-qdec="${id}" aria-label="-" class="size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">−</button>
+          <span class="w-6 text-center font-semibold tnum">${it.qty}</span>
+          <button data-qinc="${id}" aria-label="+" class="size-9 inline-flex items-center justify-center text-lg text-muted hover:text-fg active:scale-90 transition">+</button>
+        </span>
+        <span class="w-12 text-right font-display tnum">${it.unit*it.qty}€</span>
+        <button data-remove="${id}" aria-label="x" class="size-8 inline-flex items-center justify-center rounded-md text-subtle hover:text-accent transition-colors">✕</button>
+      </span></div>`;
   });
-  itemsEl.innerHTML = html;
+  document.getElementById('orderItems').innerHTML = html;
   // confirm link
   const conf = document.getElementById('orderConfirm');
   if(order.size>0){
     let lines = [];
-    order.forEach(it=>{ lines.push(`• ${it.name} · ${it.tandas} ${fmtTanda(it.tandas, curLang)} · ${it.price}€`); });
-    const msg = `${d.wa_greeting}\n${lines.join('\n')}\n${d.wa_total}: ${orderTotal()}€`;
+    order.forEach(it=>{ const q = it.qty>1 ? ` × ${it.qty}` : ''; lines.push(`• ${it.name} · ${it.tandas} ${fmtTanda(it.tandas, curLang)}${q} · ${it.unit*it.qty}€`); });
+    const msg = `${d.wa_greeting}\n${lines.join('\n')}\n${d.wa_people}: ${people}\n${d.wa_total}: ${orderPrice()}€`;
     conf.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
     bar.classList.add('show');
     document.getElementById('mobileWA').style.display='none';
@@ -653,13 +667,13 @@ function renderOrder(){
     document.getElementById('orderChev').style.transform='';
     const mWA = document.getElementById('mobileWA'); if(mWA) mWA.style.display='';
   }
-  if(window.lucide) lucide.createIcons();
 }
 
-function setKart(id, name, tandas, price, moto){
+function setKart(id, name, tandas, unit){
   const cur = order.get(id);
-  if(cur && cur.tandas===tandas){ order.delete(id); }
-  else { order.set(id, {name, tandas, price, moto:!!moto}); }
+  if(cur && cur.tandas===tandas){ order.delete(id); }       // toggle the same option off
+  else if(cur){ cur.tandas=tandas; cur.unit=unit; }          // switch tandas, keep people
+  else { order.set(id, {name, tandas, unit, qty:1}); }       // new item, 1 person
 }
 
 /* ---------- init after DOM ---------- */
@@ -684,9 +698,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     grid.querySelectorAll('.tanda-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const tandas = +btn.dataset.tandas, price = +btn.dataset.price;
-        setKart(id, name, tandas, price, false);
+        setKart(id, name, tandas, price);
+        const sel = order.has(id) && order.get(id).tandas===tandas;
         grid.querySelectorAll('.tanda-btn').forEach(b=> b.classList.remove('sel'));
-        if(order.has(id)) btn.classList.add('sel');
+        if(sel) btn.classList.add('sel');
         renderOrder();
       });
     });
@@ -695,7 +710,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('.add-btn[data-kart]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id=btn.dataset.kart, name=btn.dataset.name, tandas=+btn.dataset.tandas, price=+btn.dataset.price;
-      setKart(id, name, tandas, price, true);
+      setKart(id, name, tandas, price);
       btn.classList.toggle('sel', order.has(id));
       renderOrder();
     });
@@ -714,10 +729,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     renderOrder();
   });
   document.getElementById('orderItems').addEventListener('click', (e)=>{
-    const rm = e.target.closest('[data-remove]'); if(!rm) return;
-    const id = rm.getAttribute('data-remove'); order.delete(id);
-    document.querySelectorAll(`.price-grid[data-kart="${id}"] .tanda-btn, .add-btn[data-kart="${id}"]`).forEach(b=> b.classList.remove('sel'));
-    renderOrder();
+    const inc = e.target.closest('[data-qinc]'), dec = e.target.closest('[data-qdec]'), rm = e.target.closest('[data-remove]');
+    if(inc){ const it=order.get(inc.dataset.qinc); if(it){ it.qty++; renderOrder(); } return; }
+    if(dec){ const id=dec.dataset.qdec, it=order.get(id); if(it){ it.qty--; if(it.qty<=0) removeKart(id); renderOrder(); } return; }
+    if(rm){ removeKart(rm.getAttribute('data-remove')); renderOrder(); }
   });
 
   // reveal
@@ -738,13 +753,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
     requestAnimationFrame(tick); cio.unobserve(el); }); }, {rootMargin:'-40px'});
   document.querySelectorAll('.count').forEach(c=> cio.observe(c));
 
-  /* ---------- HERO scroll-scrub ---------- */
-  const FRAMES = 61;
+  /* ---------- HERO scroll-scrub (mobile-optimised) ---------- */
+  const TOTAL = 61;
+  const isMobile = window.matchMedia('(max-width: 767px)').matches;
+  // on mobile load every 2nd frame → ~half the data & memory, still smooth
+  const step = isMobile ? 2 : 1;
+  const indices = []; for(let i=1;i<=TOTAL;i+=step) indices.push(i);
+  if(indices[indices.length-1]!==TOTAL) indices.push(TOTAL);
+  const N = indices.length;
   const path = i => `assets/frames/f-${String(i).padStart(3,'0')}.jpg`;
   const canvas = document.getElementById('heroCanvas');
   const ctx = canvas.getContext('2d');
   const heroSec = document.getElementById('top');
-  const imgs = []; let loaded = 0; let lastDrawn = -1;
+  const imgs = []; let lastDrawn = -1;
 
   function sizeCanvas(){
     const dpr = Math.min(window.devicePixelRatio||1, 2);
@@ -764,21 +785,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const rect = heroSec.getBoundingClientRect();
     const scrollable = heroSec.offsetHeight - window.innerHeight;
     const p = scrollable>0 ? Math.min(Math.max(-rect.top/scrollable,0),1) : 0;
-    return Math.round(p*(FRAMES-1));
+    return Math.round(p*(N-1));
   }
-  // preload
-  for(let i=1;i<=FRAMES;i++){
-    const im = new Image();
-    im.onload = ()=>{ loaded++; if(i===1){ sizeCanvas(); draw(0); } if(loaded===FRAMES){ draw(currentIndex()); } };
-    im.src = path(i); imgs[i-1]=im;
-  }
+  // shorter hero on mobile so the scrub doesn't feel endless on a small screen
+  if(!reduce && isMobile){ heroSec.style.height='160vh'; }
+  if(reduce){ heroSec.style.height='100svh'; }
+  // preload frame set
+  indices.forEach((fi, k)=>{
+    const im = new Image(); im.decoding='async';
+    im.onload = ()=>{ if(k===0){ sizeCanvas(); draw(0); } };
+    im.src = path(fi); imgs[k]=im;
+  });
   let ticking=false;
   function onScrollHero(){ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ draw(currentIndex()); ticking=false; }); }
-  if(!reduce){
-    window.addEventListener('scroll', onScrollHero, {passive:true});
-  } else {
-    heroSec.style.height='100svh';
-  }
+  if(!reduce) window.addEventListener('scroll', onScrollHero, {passive:true});
   window.addEventListener('resize', ()=>{ sizeCanvas(); draw(currentIndex()); }, {passive:true});
   sizeCanvas();
 });
