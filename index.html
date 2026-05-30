@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Karting el Pla — El circuit de karts més llarg de Catalunya · Pirineu de Lleida</title>
+<meta name="description" content="Karting outdoor al Pirineu de Lleida, a 15 min d'Andorra. 1.400 m d'asfalt, 4 traçats i karts des dels 7 anys fins al Rotax de 30 CV. Reserva la teva tanda per WhatsApp." />
+<meta property="og:title" content="Karting el Pla — Tú contra el crono" />
+<meta property="og:description" content="El circuito de karts al aire libre más largo de Catalunya. 1.400 m, 4 trazados, hasta 30 CV." />
+<meta property="og:image" content="assets/hero-aerial.jpg" />
+<meta name="theme-color" content="#0A0A0B" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        ink: '#0A0A0B', surface: '#141416', surface2: '#1C1C1F',
+        line: '#2A2A2E', lineStrong: '#3A3A40',
+        fg: '#F5F5F4', muted: '#A1A1AA', subtle: '#71717A',
+        accent: '#FF3B1D', accentHover: '#E5331A', lime: '#C8FF00',
+      },
+      fontFamily: {
+        display: ['Anton', 'Impact', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+    }}
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  html { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: #0A0A0B; }
+  body { background: #0A0A0B; color: #F5F5F4; overflow-x: hidden; }
+  ::selection { background: #FF3B1D; color: #fff; }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  .checker {
+    background-image:
+      linear-gradient(45deg, #1C1C1F 25%, transparent 25%),
+      linear-gradient(-45deg, #1C1C1F 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #1C1C1F 75%),
+      linear-gradient(-45deg, transparent 75%, #1C1C1F 75%);
+    background-size: 14px 14px;
+    background-position: 0 0, 0 7px, 7px -7px, -7px 0px;
+  }
+
+  @keyframes fade-up { from { opacity:0; transform: translateY(28px);} to {opacity:1; transform:none;} }
+  .reveal { opacity: 0; }
+  .reveal.in { animation: fade-up .7s cubic-bezier(0.16,1,0.3,1) forwards; }
+  @keyframes speedline { from { width: 0; } to { width: 100%; } }
+  @keyframes nudge { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(6px);} }
+  .nudge { animation: nudge 1.8s ease-in-out infinite; }
+
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .faq-chev { transform: rotate(180deg); }
+  .faq-chev { transition: transform .25s ease; }
+
+  .price-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+  /* Hero scroll-scrub */
+  #heroSticky { background-size: cover; background-position: center; }
+  #heroCanvas { display:block; }
+
+  /* Selectable tanda buttons */
+  .tanda-btn { transition: all .18s ease; cursor: pointer; }
+  .tanda-btn:hover { background: #1C1C1F; }
+  .tanda-btn.sel { background: rgba(255,59,29,.14); box-shadow: inset 0 0 0 2px #FF3B1D; }
+  .tanda-btn.sel .t-lab { color: #FF6A4D; }
+  .tanda-btn.sel .t-price { color: #fff; }
+
+  .add-btn.sel { background: #FF3B1D; color:#fff; box-shadow: inset 0 0 0 2px #FF3B1D; }
+  .add-btn.sel .add-lab::after { content: " ✓"; }
+
+  /* Order bar slide */
+  #orderBar { transform: translateY(140%); transition: transform .35s cubic-bezier(0.16,1,0.3,1); }
+  #orderBar.show { transform: translateY(0); }
+
+  /* lang menu */
+  .lang-menu { opacity:0; visibility:hidden; transform: translateY(6px); transition: all .18s ease; }
+  .lang-menu.open { opacity:1; visibility:visible; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal.in { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .nudge { animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- ============ NAV ============ -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-transparent">
+  <nav class="mx-auto max-w-7xl h-16 md:h-[68px] px-4 md:px-8 flex items-center justify-between gap-3">
+    <a href="#top" class="flex items-center gap-2.5 shrink-0">
+      <span class="inline-flex items-center justify-center size-8 rounded-[7px] bg-accent"><i data-lucide="flag" class="size-4 text-white"></i></span>
+      <span class="font-display text-lg md:text-[22px] leading-none tracking-wide">KARTING<span class="text-accent">·</span>EL PLA</span>
+    </a>
+    <ul class="hidden lg:flex items-center gap-0.5">
+      <li><a href="#experiencia" data-i18n="nav_pista" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">La pista</a></li>
+      <li><a href="#tandas" data-i18n="nav_tandas" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">Tandes i preus</a></li>
+      <li><a href="#motos" data-i18n="nav_motos" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">Motos</a></li>
+      <li><a href="#resenas" data-i18n="nav_resenas" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">Ressenyes</a></li>
+      <li><a href="#faq" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">FAQ</a></li>
+      <li><a href="#contacto" data-i18n="nav_contacto" class="px-3 py-2 text-sm font-medium text-muted hover:text-fg rounded-md transition-colors">Com arribar</a></li>
+    </ul>
+    <div class="flex items-center gap-2 shrink-0">
+      <!-- language switcher -->
+      <div class="relative">
+        <button id="langBtn" aria-haspopup="true" class="inline-flex items-center gap-1.5 h-9 px-2.5 rounded-md border border-line text-sm font-semibold text-fg hover:bg-surface2 transition-colors">
+          <i data-lucide="globe" class="size-4 text-muted"></i><span id="langCur">CA</span><i data-lucide="chevron-down" class="size-3.5 text-muted"></i>
+        </button>
+        <div id="langMenu" class="lang-menu absolute right-0 mt-2 w-40 rounded-xl border border-line bg-surface shadow-2xl shadow-black/50 p-1.5 z-50">
+          <button data-lang="ca" class="lang-opt w-full text-left px-3 py-2 rounded-md text-sm hover:bg-surface2 transition-colors">Català</button>
+          <button data-lang="es" class="lang-opt w-full text-left px-3 py-2 rounded-md text-sm hover:bg-surface2 transition-colors">Castellano</button>
+          <button data-lang="en" class="lang-opt w-full text-left px-3 py-2 rounded-md text-sm hover:bg-surface2 transition-colors">English</button>
+          <button data-lang="fr" class="lang-opt w-full text-left px-3 py-2 rounded-md text-sm hover:bg-surface2 transition-colors">Français</button>
+          <button data-lang="de" class="lang-opt w-full text-left px-3 py-2 rounded-md text-sm hover:bg-surface2 transition-colors">Deutsch</button>
+        </div>
+      </div>
+      <a href="https://wa.me/34610792532" target="_blank" rel="noopener" id="navReserva"
+         class="hidden sm:inline-flex items-center gap-2 h-10 px-4 rounded-[9px] bg-accent text-white text-sm font-semibold hover:bg-accentHover transition-colors active:scale-[0.98]">
+        <i data-lucide="message-circle" class="size-4"></i><span data-i18n="nav_reservar">Reservar</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO (scroll-scrub frames) ============ -->
+<section id="top" style="height: 240vh;" class="relative">
+  <div id="heroSticky" class="sticky top-0 h-[100svh] w-full overflow-hidden" style="background-image:url('assets/frames/f-001.jpg')">
+    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full"></canvas>
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-ink via-ink/35 to-ink/30"></div>
+    <div class="absolute inset-0 z-10 bg-gradient-to-r from-ink/80 via-transparent to-transparent"></div>
+
+    <div class="absolute inset-x-0 bottom-0 z-20">
+      <div class="mx-auto max-w-7xl w-full px-5 md:px-8 pb-16 md:pb-20">
+        <div id="heroText" class="max-w-3xl">
+          <p class="flex items-center gap-2 text-xs font-medium tracking-[0.14em] uppercase text-muted mb-5">
+            <i data-lucide="mountain" class="size-4 text-accent"></i><span data-i18n="hero_eyebrow">Pirineu de Lleida · a 15 min d'Andorra</span>
+          </p>
+          <h1 data-i18n-html="hero_h1" class="font-display text-[14vw] sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-[0.92] tracking-tight">
+            1.400 METRES.<br><span class="text-accent">TU</span> CONTRA EL CRONO.
+          </h1>
+          <div class="mt-5 h-px bg-gradient-to-r from-accent to-transparent" style="animation: speedline 1.2s .3s both;"></div>
+          <p data-i18n="hero_sub" class="mt-6 text-lg md:text-xl text-fg/90 leading-relaxed max-w-xl">
+            El circuit de karting a l'aire lliure més llarg de Catalunya. Del primer kart als 7 anys al Rotax de 30 CV. Reserva la teva tanda i baixa a pista.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#tandas" class="inline-flex items-center justify-center gap-2.5 h-13 md:h-14 px-7 rounded-[11px] bg-accent text-white text-base font-semibold hover:bg-accentHover transition-all active:scale-[0.98] shadow-lg shadow-accent/20">
+              <i data-lucide="flag" class="size-5"></i><span data-i18n="hero_cta1">Munta la teva reserva</span>
+            </a>
+            <a href="#experiencia" class="inline-flex items-center justify-center gap-2 h-13 md:h-14 px-7 rounded-[11px] bg-white/10 backdrop-blur-sm text-fg text-base font-semibold border border-white/15 hover:bg-white/15 transition-all active:scale-[0.98]">
+              <span data-i18n="hero_cta2">Descobreix el circuit</span> <i data-lucide="arrow-down" class="size-4"></i>
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+            <span class="flex items-center gap-1.5"><span class="flex text-accent">★★★★<span class="text-subtle">★</span></span><span class="font-semibold tnum">4,2</span><span class="text-muted" data-i18n="hero_trust_google">a Google · 400+ ressenyes</span></span>
+            <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
+            <span class="text-muted flex items-center gap-1.5"><i data-lucide="route" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_trazados">4 traçats</span></span>
+            <span class="h-4 w-px bg-lineStrong hidden sm:block"></span>
+            <span class="text-muted flex items-center gap-1.5"><i data-lucide="gauge" class="size-4 text-fg/60"></i> <span data-i18n="hero_trust_cv">fins a 30 CV</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute z-20 bottom-6 left-1/2 -translate-x-1/2 text-subtle"><i data-lucide="chevron-down" class="size-7 nudge"></i></div>
+  </div>
+</section>
+
+<!-- ============ STATS BAR ============ -->
+<section id="stats" class="relative z-20 border-y border-line bg-surface">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <dl class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-line">
+      <div class="p-6 md:p-8"><dd class="font-display text-4xl md:text-5xl tnum"><span class="count" data-to="1400">0</span><span class="text-accent">m</span></dd><dt class="mt-1 text-sm text-muted" data-i18n="stat1">d'asfalt · el més llarg de Catalunya</dt></div>
+      <div class="p-6 md:p-8"><dd class="font-display text-4xl md:text-5xl tnum"><span class="count" data-to="8">0</span><span class="text-accent">m</span></dd><dt class="mt-1 text-sm text-muted" data-i18n="stat2">d'ample · avançaments de veritat</dt></div>
+      <div class="p-6 md:p-8"><dd class="font-display text-4xl md:text-5xl tnum"><span class="count" data-to="4">0</span></dd><dt class="mt-1 text-sm text-muted" data-i18n="stat3">traçats alternatius (600–1.400 m)</dt></div>
+      <div class="p-6 md:p-8"><dd class="font-display text-4xl md:text-5xl tnum"><span class="count" data-to="10">0</span><span class="text-accent">min</span></dd><dt class="mt-1 text-sm text-muted" data-i18n="stat4">per tanda, a fons</dt></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCIA / POV ============ -->
+<section id="experiencia" class="relative py-24 md:py-32 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-5 reveal">
+        <span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="exp_eyebrow">La sensació</span>
+        <h2 data-i18n="exp_h2" class="mt-4 font-display text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight">AIXÒ NO ÉS UN KARTING DE CENTRE COMERCIAL</h2>
+        <p data-i18n="exp_p" class="mt-6 text-lg text-muted leading-relaxed max-w-prose">Aquí corres a l'aire lliure, entre muntanyes i vora el riu, sobre un traçat de veritat: una zona ràpida per deixar anar el peu i una zona tècnica que separa els valents dels ràpids. Et posem casc, granota i guants. La resta la poses tu.</p>
+        <ul class="mt-8 space-y-4">
+          <li class="flex items-start gap-3.5"><span class="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-[9px] bg-surface2 border border-line"><i data-lucide="gauge-circle" class="size-5 text-accent"></i></span><div><p class="font-semibold" data-i18n="exp_f1t">Zona ràpida + zona tècnica</p><p class="text-sm text-muted mt-0.5" data-i18n="exp_f1d">1.400 m que premien frenada tardana i traçada neta.</p></div></li>
+          <li class="flex items-start gap-3.5"><span class="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-[9px] bg-surface2 border border-line"><i data-lucide="timer" class="size-5 text-accent"></i></span><div><p class="font-semibold" data-i18n="exp_f2t">Cronometratge professional</p><p class="text-sm text-muted mt-0.5" data-i18n="exp_f2d">Doble banda compatible amb Alfano i MyChron. La teva volta ràpida, mesurada.</p></div></li>
+          <li class="flex items-start gap-3.5"><span class="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-[9px] bg-surface2 border border-line"><i data-lucide="shield-check" class="size-5 text-accent"></i></span><div><p class="font-semibold" data-i18n="exp_f3t">Seguretat de federació</p><p class="text-sm text-muted mt-0.5" data-i18n="exp_f3d">Proteccions i zones d'escapatòria a tots els traçats.</p></div></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 reveal" style="animation-delay:.1s">
+        <figure class="relative rounded-2xl overflow-hidden border border-line">
+          <img src="assets/cockpit-pov.jpg" alt="Vista en primera persona des de dins d'un kart" loading="lazy" class="w-full aspect-[16/10] object-cover" />
+          <figcaption class="absolute bottom-0 inset-x-0 p-5 md:p-6 bg-gradient-to-t from-ink/90 to-transparent"><span class="inline-flex items-center gap-2 text-sm font-medium"><i data-lucide="eye" class="size-4 text-lime"></i> <span data-i18n="exp_caption">Així es veu des del seient</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TANDAS / CONFIGURADOR ============ -->
+<section id="tandas" class="py-24 md:py-32 border-t border-line bg-gradient-to-b from-surface/40 to-ink">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="max-w-2xl mb-8 reveal">
+      <span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="tandas_eyebrow">Tandes i preus</span>
+      <h2 data-i18n-html="tandas_h2" class="mt-4 font-display text-5xl md:text-7xl leading-[0.95] tracking-tight">TRIA EL TEU KART.<br>TRIA LES TEVES TANDES.</h2>
+      <p data-i18n-html="tandas_p" class="mt-5 text-lg text-muted leading-relaxed"><span class="text-fg font-semibold">1 tanda = 10 minuts</span> a pista. Com més tandes reserves, més barata et surt cadascuna. Preus per persona, equip de seguretat inclòs.</p>
+    </div>
+    <div class="mb-10 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm text-muted reveal">
+      <i data-lucide="hand-pointer" class="size-4 text-accent"></i><span data-i18n="tandas_helper">Toca les tandes que vulguis de cada kart i munta la teva reserva</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+      <!-- Junior -->
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-junior.jpg" alt="Kart Junior" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">JUNIOR</h3><p class="text-sm text-muted mt-1" data-i18n="k_junior_sub">Per a la canalla de 7 a 12 anys</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">Honda 160cc · 5,5 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="junior" data-name="Junior">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="15"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">15<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="28"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">28<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="38"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">38<span class="text-base text-muted">€</span></p></button>
+            <div class="p-3 bg-surface2/30 flex flex-col justify-center"><p class="text-[11px] uppercase tracking-wide text-subtle">6</p><p class="font-display text-2xl mt-1 text-subtle">—</p></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Super Kart -->
+      <article class="reveal group relative rounded-2xl bg-surface border-2 border-accent overflow-hidden flex flex-col shadow-xl shadow-accent/10" style="animation-delay:.06s">
+        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide px-3 py-1 rounded-full bg-accent text-white"><i data-lucide="flame" class="size-3.5"></i> <span data-i18n="badge_popular">El més demanat</span></span>
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-superkart.jpg" alt="Super Kart" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">SUPER KART</h3><p class="text-sm text-muted mt-1" data-i18n="k_superkart_sub">+12 anys i adults</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-accent/15 border border-accent/30 text-accent">Honda 270cc · 9 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="superkart" data-name="Super Kart">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="20"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">20<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="32"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">32<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="42"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">42<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="72"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">72<span class="text-base text-muted">€</span></p></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- SuperBi -->
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col" style="animation-delay:.12s">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-superbi.jpg" alt="SuperBi biplaza" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">SUPERBI <span class="text-lime text-lg align-middle">·biplaça</span></h3><p class="text-sm text-muted mt-1" data-i18n="k_superbi_sub">2 adults, o adult + nen (≥130 cm)</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">Honda 270cc · 9 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="superbi" data-name="SuperBi">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="25"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">25<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="45"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">45<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="55"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">55<span class="text-base text-muted">€</span></p></button>
+            <div class="p-3 bg-surface2/30 flex flex-col justify-center"><p class="text-[11px] uppercase tracking-wide text-subtle">6</p><p class="font-display text-2xl mt-1 text-subtle">—</p></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Racing -->
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-racing.jpg" alt="Kart Racing" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">RACING</h3><p class="text-sm text-muted mt-1" data-i18n="k_racing_sub">+16 anys · el salt a la velocitat</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">Honda 400cc · 15 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="racing" data-name="Racing">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="25"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">25<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="45"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">45<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="60"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">60<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="100"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">100<span class="text-base text-muted">€</span></p></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Competición -->
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden flex flex-col" style="animation-delay:.06s">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-competicion.jpg" alt="Kart de Competición" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">COMPETICIÓ</h3><p class="text-sm text-muted mt-1" data-i18n="k_comp_sub">Adults amb experiència</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-surface2 border border-line text-muted">Rotax 125 2T · 23 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="competicion" data-name="Competició">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="50"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">50<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="85"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">85<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="120"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">120<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="165"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">165<span class="text-base text-muted">€</span></p></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Súper Competición -->
+      <article class="reveal group rounded-2xl bg-gradient-to-b from-surface to-surface2 border border-lineStrong overflow-hidden flex flex-col" style="animation-delay:.12s">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/kart-supercomp.jpg" alt="Kart de Súper Competición" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-3"><div><h3 class="font-display text-3xl tracking-tight">SÚPER COMP.</h3><p class="text-sm text-muted mt-1" data-i18n="k_supercomp_sub">Només nivell alt · el més bèstia</p></div><span class="shrink-0 text-[11px] font-semibold tnum px-2.5 py-1 rounded-md bg-accent/15 border border-accent/30 text-accent">Rotax 125 2T · 30 CV</span></div>
+          <div class="price-grid mt-5 rounded-xl overflow-hidden border border-line text-center" data-kart="supercomp" data-name="Súper Competició">
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="1" data-price="75"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">1</span> <span data-i18n="tanda_word">tanda</span></p><p class="t-price font-display text-2xl mt-1 tnum">75<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="2" data-price="130"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">2</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">130<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3 border-r border-line" data-tandas="3" data-price="185"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">3</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">185<span class="text-base text-muted">€</span></p></button>
+            <button class="tanda-btn p-3" data-tandas="6" data-price="330"><p class="t-lab text-[11px] uppercase tracking-wide text-subtle"><span class="t-n">6</span> <span data-i18n="tanda_word_pl">tandes</span></p><p class="t-price font-display text-2xl mt-1 tnum">330<span class="text-base text-muted">€</span></p></button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="mt-6 text-sm text-subtle flex items-center gap-2"><i data-lucide="info" class="size-4"></i> <span data-i18n-html="tandas_formula">Grup, aniversari o esdeveniment d'empresa? Tenim flota <span class="text-fg font-medium">Fórmula</span> per a curses de grup. Escriu-nos i ho muntem.</span></p>
+  </div>
+</section>
+
+<!-- ============ MOTOS ============ -->
+<section id="motos" class="py-24 md:py-32 border-t border-line">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="max-w-xl mb-12 reveal">
+      <span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="motos_eyebrow">Motos i PitBikes</span>
+      <h2 data-i18n="motos_h2" class="mt-4 font-display text-5xl md:text-6xl leading-[0.95] tracking-tight">EL TEU ÉS SOBRE DUES RODES?</h2>
+      <p data-i18n="motos_p" class="mt-5 text-lg text-muted leading-relaxed">Super Motard i PitBikes sobre el mateix traçat, amb +250 m de terra enllaçable. Equip (granota + casc) per 20€.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-supermotard.jpg" alt="Super Motard IMR SK1 250cc" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">SUPER MOTARD</h3><span class="font-display text-3xl text-accent tnum">40<span class="text-lg">€</span></span></div>
+          <p class="text-sm text-muted mt-1" data-i18n="moto_supermotard_sub">IMR SK1 250cc · tanda de 15 min</p>
+          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="supermotard" data-name="Super Motard" data-tandas="1" data-price="40"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        </div>
+      </article>
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden" style="animation-delay:.06s">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-pitbike.jpg" alt="Moto PitBike PGR Arrow 125" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">MOTO PITBIKE</h3><span class="font-display text-3xl text-accent tnum">20<span class="text-lg">€</span></span></div>
+          <p class="text-sm text-muted mt-1" data-i18n="moto_pitbike_sub">PGR Arrow 125 · tanda de 10 min</p>
+          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="pitbike" data-name="Moto PitBike" data-tandas="1" data-price="20"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        </div>
+      </article>
+      <article class="reveal group rounded-2xl bg-surface border border-line overflow-hidden" style="animation-delay:.12s">
+        <div class="aspect-[4/3] bg-gradient-to-b from-surface2 to-ink overflow-hidden border-b border-line"><img src="assets/moto-pitcross.jpg" alt="Moto PitCross PGR Arrow 125" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between gap-3"><h3 class="font-display text-2xl tracking-tight">MOTO PITCROSS</h3><span class="font-display text-3xl text-accent tnum">20<span class="text-lg">€</span></span></div>
+          <p class="text-sm text-muted mt-1" data-i18n="moto_pitcross_sub">PGR Arrow 125 · tanda de 10 min</p>
+          <button class="add-btn mt-5 inline-flex w-full items-center justify-center gap-2 h-11 rounded-[10px] bg-surface2 border border-line text-sm font-semibold hover:border-accent hover:text-accent transition-colors" data-kart="pitcross" data-name="Moto PitCross" data-tandas="1" data-price="20"><i data-lucide="plus" class="size-4"></i><span class="add-lab" data-i18n="moto_add">Afegir a la reserva</span></button>
+        </div>
+      </article>
+    </div>
+
+    <div class="reveal mt-5 rounded-2xl border border-line bg-surface p-7 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div class="flex items-start gap-4 max-w-xl"><span class="inline-flex size-11 shrink-0 items-center justify-center rounded-[11px] bg-surface2 border border-line"><i data-lucide="wrench" class="size-5 text-accent"></i></span><div><h3 class="font-display text-2xl tracking-tight" data-i18n="vehiculo_h">VENS AMB EL TEU KART O MOTO?</h3><p class="text-sm text-muted mt-1.5" data-i18n="vehiculo_p">Tiquet de pista amb taller, aigua, llum i aire inclosos. Porta el teu vehicle i roda al teu ritme.</p></div></div>
+      <div class="flex gap-3 shrink-0">
+        <div class="rounded-xl border border-line bg-surface2/50 px-5 py-3 text-center"><p class="text-[11px] uppercase tracking-wide text-subtle" data-i18n="vehiculo_4h">4 hores</p><p class="font-display text-2xl tnum mt-0.5">35€</p></div>
+        <div class="rounded-xl border border-line bg-surface2/50 px-5 py-3 text-center"><p class="text-[11px] uppercase tracking-wide text-subtle" data-i18n="vehiculo_dia">Dia complet</p><p class="font-display text-2xl tnum mt-0.5">60€</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCIÓN ============ -->
+<section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden border-y border-line">
+  <img src="assets/kart-action.jpg" alt="Kart prenent una corba a fons" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-ink/55"></div>
+  <div class="relative z-10 text-center px-5">
+    <p data-i18n="action_h" class="font-display text-5xl md:text-8xl leading-[0.95] tracking-tight max-w-4xl mx-auto">DEU MINUTS QUE NO S'OBLIDEN</p>
+    <a href="#tandas" class="mt-8 inline-flex items-center justify-center gap-2.5 h-13 px-7 rounded-[11px] bg-accent text-white text-base font-semibold hover:bg-accentHover transition-all active:scale-[0.98]"><i data-lucide="flag" class="size-5"></i><span data-i18n="action_cta">Munta la teva reserva</span></a>
+  </div>
+</section>
+
+<!-- ============ RESEÑAS ============ -->
+<section id="resenas" class="py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 reveal">
+      <div class="max-w-xl"><span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="res_eyebrow">El que diuen els pilots</span><h2 data-i18n-html="res_h2" class="mt-4 font-display text-5xl md:text-7xl leading-[0.95] tracking-tight">4,2★ I MÉS DE<br>400 RESSENYES</h2></div>
+      <div class="flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
+        <div class="text-center"><p class="font-display text-5xl leading-none tnum">4,2</p><div class="flex justify-center text-accent mt-1 text-sm">★★★★<span class="text-subtle">★</span></div></div>
+        <div class="h-12 w-px bg-line"></div>
+        <div class="text-sm text-muted leading-snug"><p class="flex items-center gap-1.5"><svg class="size-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"/></svg> <span data-i18n="res_google">Opinions reals a Google</span></p><p class="mt-1 text-subtle">El Pla de Sant Tirs (Lleida)</p></div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7"><div class="flex text-accent text-sm mb-4">★★★★★</div><blockquote data-i18n="res_1" class="text-fg/90 leading-relaxed">"Un dels millors circuits on he rodat. Té una zona ràpida per deixar-te anar i una altra de molt tècnica que enganxa. Hi tornarem segur."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">M</span><div><p class="font-semibold text-sm">Marc V.</p><p class="text-xs text-subtle" data-i18n="res_1m">Local Guide · fa 3 setmanes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7" style="animation-delay:.06s"><div class="flex text-accent text-sm mb-4">★★★★★</div><blockquote data-i18n="res_2" class="text-fg/90 leading-relaxed">"El tracte del personal és de 10, et fan sentir de la família. Vam anar amb nens i adults i hi havia kart per a cadascú. L'entorn, espectacular."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">P</span><div><p class="font-semibold text-sm">Patrícia R.</p><p class="text-xs text-subtle" data-i18n="res_2m">fa 1 mes</p></div></figcaption></figure>
+      <figure class="reveal rounded-2xl border border-line bg-surface p-7" style="animation-delay:.12s"><div class="flex text-accent text-sm mb-4">★★★★<span class="text-subtle">★</span></div><blockquote data-i18n="res_3" class="text-fg/90 leading-relaxed">"Circuit llarg de veritat i a 15 min d'Andorra, una passada de lloc. Dies de molta gent toca esperar entre tandes, però la conducció ho val."</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="inline-flex size-10 items-center justify-center rounded-full bg-surface2 border border-line font-display text-lg">J</span><div><p class="font-semibold text-sm">Jordi S.</p><p class="text-xs text-subtle" data-i18n="res_3m">fa 2 mesos</p></div></figcaption></figure>
+    </div>
+    <div class="mt-8 reveal"><a href="https://www.google.com/search?q=Karting+el+Pla+de+Sant+Tirs+rese%C3%B1as" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-fg transition-colors"><span data-i18n="res_seeall">Veure totes les ressenyes a Google</span> <i data-lucide="external-link" class="size-4"></i></a></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="py-24 md:py-32 border-t border-line bg-surface/30">
+  <div class="mx-auto max-w-3xl px-5 md:px-8">
+    <div class="mb-12 reveal"><span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="faq_eyebrow">Abans de venir</span><h2 data-i18n="faq_h2" class="mt-4 font-display text-5xl md:text-6xl leading-[0.95] tracking-tight">PREGUNTES FREQÜENTS</h2></div>
+    <div id="faqList" class="divide-y divide-line border-y border-line">
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q1">Quant dura una tanda?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a1">Una tanda són 10 minuts a pista, a fons. Les de Super Motard duren 15 minuts. Com més tandes reserves de cop, més barata surt cadascuna.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q2">Hi ha karts per a nens?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a2">Sí. El kart Junior és per a la canalla de 7 a 12 anys. I si vols anar amb un adult, el SuperBi és biplaça (el nen ha de fer com a mínim 130 cm).</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q3">Necessito experiència o carnet?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a3">No per al Junior, Super Kart, SuperBi ni Racing: t'expliquem el bàsic i a pista. Els karts de Competició i Súper Competició (Rotax) sí que demanen experiència i un bon nivell.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q4">Què m'he de posar?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a4">Nosaltres et donem casc, sotacasc, granota i guants. Tu vine amb roba còmoda i sabata tancada. Si plou, tenim granotes impermeables: aquí es roda igual.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q5">Puc venir amb el meu kart o moto?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a5">És clar. Tens tiquet de pista de 4 hores (35€) o de dia complet (60€), amb taller, aigua, llum i aire inclosos. També hi ha nau de pupil·latge si vols deixar-hi el vehicle.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q6">Feu aniversaris, comiats o esdeveniments d'empresa?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a6">Sí. Muntem curses de grup amb cronometratge i tenim flota Fórmula pensada per a esdeveniments. Escriu-nos per WhatsApp i et preparem una proposta a mida.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q7">Cal reservar?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a7">Obrim cada dia de 10:00 a 19:00 (i fins a les 22:00 amb cita prèvia). Caps de setmana i festius et recomanem reservar per WhatsApp per assegurar la tanda i evitar esperes.</p></details>
+      <details class="group reveal"><summary class="flex items-center justify-between gap-4 py-5"><span class="text-lg font-semibold" data-i18n="faq_q8">On sou exactament?</span><i data-lucide="chevron-down" class="faq-chev size-5 text-muted shrink-0"></i></summary><p class="pb-5 -mt-1 text-muted leading-relaxed" data-i18n="faq_a8">A la carretera C-14, km 174, al Pla de Sant Tirs (Lleida), en ple Pirineu i a només 15 minuts d'Andorra. Tens el mapa i la ruta més avall.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="py-24 md:py-32 border-t border-line">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
+      <div class="reveal">
+        <span class="text-xs font-medium tracking-[0.14em] uppercase text-accent" data-i18n="cont_eyebrow">Com arribar</span>
+        <h2 data-i18n-html="cont_h2" class="mt-4 font-display text-5xl md:text-6xl leading-[0.95] tracking-tight">ENS VEIEM<br>A LA GRAELLA</h2>
+        <p data-i18n="cont_p" class="mt-5 text-lg text-muted leading-relaxed max-w-md">Reserva la teva tanda per WhatsApp en 30 segons. Et confirmem hora i kart a l'instant.</p>
+        <div class="mt-8 space-y-3">
+          <a href="https://wa.me/34610792532" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-xl border border-line bg-surface p-4 hover:border-accent transition-colors group"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-accent/15 text-accent"><i data-lucide="message-circle" class="size-5"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle" data-i18n="cont_wa">WhatsApp · reserves</span><span class="block font-semibold tnum group-hover:text-accent transition-colors">+34 610 792 532</span></span><i data-lucide="arrow-up-right" class="size-5 text-subtle ml-auto"></i></a>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <a href="tel:+34973387387" class="flex items-center gap-4 rounded-xl border border-line bg-surface p-4 hover:border-lineStrong transition-colors"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-surface2 border border-line"><i data-lucide="phone" class="size-5 text-fg/70"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle" data-i18n="cont_tel">Telèfon</span><span class="block font-semibold tnum">973 387 387</span></span></a>
+            <a href="mailto:info@kartingelpla.com" class="flex items-center gap-4 rounded-xl border border-line bg-surface p-4 hover:border-lineStrong transition-colors"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-surface2 border border-line"><i data-lucide="mail" class="size-5 text-fg/70"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle">Email</span><span class="block font-semibold text-sm">info@kartingelpla.com</span></span></a>
+          </div>
+          <div class="flex items-start gap-4 rounded-xl border border-line bg-surface p-4"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-surface2 border border-line shrink-0"><i data-lucide="map-pin" class="size-5 text-fg/70"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle" data-i18n="cont_dir">Adreça</span><span class="block font-semibold">Carretera C-14, km 174</span><span class="block text-sm text-muted">El Pla de Sant Tirs, Lleida</span></span></div>
+          <div class="flex items-start gap-4 rounded-xl border border-line bg-surface p-4"><span class="inline-flex size-11 items-center justify-center rounded-[11px] bg-surface2 border border-line shrink-0"><i data-lucide="clock" class="size-5 text-fg/70"></i></span><span><span class="block text-xs uppercase tracking-wide text-subtle" data-i18n="cont_horari">Horari</span><span class="block font-semibold" data-i18n="cont_horari_v">Cada dia · 10:00 – 19:00</span><span class="block text-sm text-muted" data-i18n="cont_horari_v2">De 19:00 a 22:00 amb cita prèvia</span></span></div>
+        </div>
+      </div>
+      <div class="reveal rounded-2xl overflow-hidden border border-line min-h-[420px] lg:min-h-full">
+        <iframe title="Mapa Karting el Pla" src="https://maps.google.com/maps?q=Karting%20el%20Pla%2C%20C-14%20km%20174%2C%20El%20Pla%20de%20Sant%20Tirs&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-full min-h-[420px]" style="border:0; filter: invert(0.92) hue-rotate(180deg) contrast(0.9);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto max-w-7xl px-5 md:px-8 py-14">
+    <div class="flex flex-col md:flex-row justify-between gap-10">
+      <div class="max-w-sm"><a href="#top" class="flex items-center gap-2.5"><span class="inline-flex items-center justify-center size-8 rounded-[7px] bg-accent"><i data-lucide="flag" class="size-4 text-white"></i></span><span class="font-display text-xl tracking-wide">KARTING<span class="text-accent">·</span>EL PLA</span></a><p class="mt-4 text-sm text-muted leading-relaxed" data-i18n="footer_tag">El circuit de karting a l'aire lliure més llarg de Catalunya. 1.400 m, 4 traçats i karts per a tota la família, al Pirineu de Lleida.</p></div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+        <div><p class="text-xs uppercase tracking-wide text-subtle mb-3" data-i18n="footer_c1">Pista</p><ul class="space-y-2 text-muted"><li><a href="#tandas" class="hover:text-fg transition-colors" data-i18n="nav_tandas">Tandes i preus</a></li><li><a href="#motos" class="hover:text-fg transition-colors" data-i18n="nav_motos">Motos</a></li><li><a href="#experiencia" class="hover:text-fg transition-colors" data-i18n="footer_circuit">El circuit</a></li></ul></div>
+        <div><p class="text-xs uppercase tracking-wide text-subtle mb-3" data-i18n="footer_c2">Info</p><ul class="space-y-2 text-muted"><li><a href="#resenas" class="hover:text-fg transition-colors" data-i18n="nav_resenas">Ressenyes</a></li><li><a href="#faq" class="hover:text-fg transition-colors">FAQ</a></li><li><a href="#contacto" class="hover:text-fg transition-colors" data-i18n="nav_contacto">Com arribar</a></li></ul></div>
+        <div><p class="text-xs uppercase tracking-wide text-subtle mb-3" data-i18n="footer_c3">Contacte</p><ul class="space-y-2 text-muted"><li><a href="https://wa.me/34610792532" target="_blank" rel="noopener" class="hover:text-fg transition-colors tnum">+34 610 792 532</a></li><li><a href="mailto:info@kartingelpla.com" class="hover:text-fg transition-colors">info@kartingelpla.com</a></li><li><a href="https://kartingelpla.com" target="_blank" rel="noopener" class="hover:text-fg transition-colors">kartingelpla.com</a></li></ul></div>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row justify-between gap-3 text-xs text-subtle"><p>© 2026 Karting el Pla · El Pla de Sant Tirs (Lleida)</p><p data-i18n="footer_made">Fet amb asfalt, muntanya i molta velocitat.</p></div>
+  </div>
+</footer>
+
+<!-- ============ ORDER BAR (configurador) ============ -->
+<div id="orderBar" class="fixed bottom-0 inset-x-0 z-50 px-3 pb-3 sm:px-4 sm:pb-4">
+  <div class="mx-auto max-w-3xl rounded-2xl border border-lineStrong bg-surface/95 backdrop-blur-md shadow-2xl shadow-black/60 overflow-hidden">
+    <div id="orderItems" class="max-h-40 overflow-y-auto px-4 pt-3 hidden"></div>
+    <div class="flex items-center gap-3 p-3 sm:p-4">
+      <button id="orderToggle" class="flex items-center gap-2 text-left min-w-0 flex-1">
+        <span class="relative inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent text-white"><i data-lucide="flag" class="size-5"></i><span id="orderCount" class="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 inline-flex items-center justify-center rounded-full bg-lime text-ink text-[11px] font-bold tnum">0</span></span>
+        <span class="min-w-0"><span class="block text-xs text-subtle" data-i18n="order_label">La teva reserva</span><span class="block font-display text-2xl tnum leading-none"><span id="orderTotal">0</span>€ <i data-lucide="chevron-up" id="orderChev" class="inline size-4 text-muted align-middle"></i></span></span>
+      </button>
+      <button id="orderClear" class="hidden sm:inline-flex items-center justify-center size-10 rounded-lg border border-line text-muted hover:text-fg hover:border-lineStrong transition-colors" aria-label="Clear"><i data-lucide="trash-2" class="size-4"></i></button>
+      <a id="orderConfirm" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accentHover transition-colors active:scale-[0.98] shrink-0"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="order_confirm">Confirmar reserva</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- sticky mobile WA (hidden when order active) -->
+<a href="https://wa.me/34610792532" target="_blank" rel="noopener" id="mobileWA" class="sm:hidden fixed bottom-4 inset-x-4 z-40 inline-flex items-center justify-center gap-2.5 h-14 rounded-2xl bg-accent text-white text-base font-semibold shadow-2xl shadow-black/40 active:scale-[0.98] transition-transform"><i data-lucide="message-circle" class="size-5"></i><span data-i18n="mobile_wa">Reservar per WhatsApp</span></a>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+/* ---------- i18n dictionary ---------- */
+const I18N = {
+  ca: {
+    nav_pista:"La pista", nav_tandas:"Tandes i preus", nav_motos:"Motos", nav_resenas:"Ressenyes", nav_contacto:"Com arribar", nav_reservar:"Reservar",
+    hero_eyebrow:"Pirineu de Lleida · a 15 min d'Andorra", hero_h1:"1.400 METRES.<br><span class='text-accent'>TU</span> CONTRA EL CRONO.", hero_sub:"El circuit de karting a l'aire lliure més llarg de Catalunya. Del primer kart als 7 anys al Rotax de 30 CV. Reserva la teva tanda i baixa a pista.", hero_cta1:"Munta la teva reserva", hero_cta2:"Descobreix el circuit", hero_trust_google:"a Google · 400+ ressenyes", hero_trust_trazados:"4 traçats", hero_trust_cv:"fins a 30 CV",
+    stat1:"d'asfalt · el més llarg de Catalunya", stat2:"d'ample · avançaments de veritat", stat3:"traçats alternatius (600–1.400 m)", stat4:"per tanda, a fons",
+    exp_eyebrow:"La sensació", exp_h2:"AIXÒ NO ÉS UN KARTING DE CENTRE COMERCIAL", exp_p:"Aquí corres a l'aire lliure, entre muntanyes i vora el riu, sobre un traçat de veritat: una zona ràpida per deixar anar el peu i una zona tècnica que separa els valents dels ràpids. Et posem casc, granota i guants. La resta la poses tu.", exp_f1t:"Zona ràpida + zona tècnica", exp_f1d:"1.400 m que premien frenada tardana i traçada neta.", exp_f2t:"Cronometratge professional", exp_f2d:"Doble banda compatible amb Alfano i MyChron. La teva volta ràpida, mesurada.", exp_f3t:"Seguretat de federació", exp_f3d:"Proteccions i zones d'escapatòria a tots els traçats.", exp_caption:"Així es veu des del seient",
+    tandas_eyebrow:"Tandes i preus", tandas_h2:"TRIA EL TEU KART.<br>TRIA LES TEVES TANDES.", tandas_p:"<span class='text-fg font-semibold'>1 tanda = 10 minuts</span> a pista. Com més tandes reserves, més barata et surt cadascuna. Preus per persona, equip de seguretat inclòs.", tandas_helper:"Toca les tandes que vulguis de cada kart i munta la teva reserva", tandas_formula:"Grup, aniversari o esdeveniment d'empresa? Tenim flota <span class='text-fg font-medium'>Fórmula</span> per a curses de grup. Escriu-nos i ho muntem.",
+    tanda_word:"tanda", tanda_word_pl:"tandes", badge_popular:"El més demanat",
+    k_junior_sub:"Per a la canalla de 7 a 12 anys", k_superkart_sub:"+12 anys i adults", k_superbi_sub:"2 adults, o adult + nen (≥130 cm)", k_racing_sub:"+16 anys · el salt a la velocitat", k_comp_sub:"Adults amb experiència", k_supercomp_sub:"Només nivell alt · el més bèstia",
+    motos_eyebrow:"Motos i PitBikes", motos_h2:"EL TEU ÉS SOBRE DUES RODES?", motos_p:"Super Motard i PitBikes sobre el mateix traçat, amb +250 m de terra enllaçable. Equip (granota + casc) per 20€.", moto_supermotard_sub:"IMR SK1 250cc · tanda de 15 min", moto_pitbike_sub:"PGR Arrow 125 · tanda de 10 min", moto_pitcross_sub:"PGR Arrow 125 · tanda de 10 min", moto_add:"Afegir a la reserva",
+    vehiculo_h:"VENS AMB EL TEU KART O MOTO?", vehiculo_p:"Tiquet de pista amb taller, aigua, llum i aire inclosos. Porta el teu vehicle i roda al teu ritme.", vehiculo_4h:"4 hores", vehiculo_dia:"Dia complet",
+    action_h:"DEU MINUTS QUE NO S'OBLIDEN", action_cta:"Munta la teva reserva",
+    res_eyebrow:"El que diuen els pilots", res_h2:"4,2★ I MÉS DE<br>400 RESSENYES", res_google:"Opinions reals a Google", res_1:"\"Un dels millors circuits on he rodat. Té una zona ràpida per deixar-te anar i una altra de molt tècnica que enganxa. Hi tornarem segur.\"", res_1m:"Local Guide · fa 3 setmanes", res_2:"\"El tracte del personal és de 10, et fan sentir de la família. Vam anar amb nens i adults i hi havia kart per a cadascú. L'entorn, espectacular.\"", res_2m:"fa 1 mes", res_3:"\"Circuit llarg de veritat i a 15 min d'Andorra, una passada de lloc. Dies de molta gent toca esperar entre tandes, però la conducció ho val.\"", res_3m:"fa 2 mesos", res_seeall:"Veure totes les ressenyes a Google",
+    faq_eyebrow:"Abans de venir", faq_h2:"PREGUNTES FREQÜENTS",
+    faq_q1:"Quant dura una tanda?", faq_a1:"Una tanda són 10 minuts a pista, a fons. Les de Super Motard duren 15 minuts. Com més tandes reserves de cop, més barata surt cadascuna.",
+    faq_q2:"Hi ha karts per a nens?", faq_a2:"Sí. El kart Junior és per a la canalla de 7 a 12 anys. I si vols anar amb un adult, el SuperBi és biplaça (el nen ha de fer com a mínim 130 cm).",
+    faq_q3:"Necessito experiència o carnet?", faq_a3:"No per al Junior, Super Kart, SuperBi ni Racing: t'expliquem el bàsic i a pista. Els karts de Competició i Súper Competició (Rotax) sí que demanen experiència i un bon nivell.",
+    faq_q4:"Què m'he de posar?", faq_a4:"Nosaltres et donem casc, sotacasc, granota i guants. Tu vine amb roba còmoda i sabata tancada. Si plou, tenim granotes impermeables: aquí es roda igual.",
+    faq_q5:"Puc venir amb el meu kart o moto?", faq_a5:"És clar. Tens tiquet de pista de 4 hores (35€) o de dia complet (60€), amb taller, aigua, llum i aire inclosos. També hi ha nau de pupil·latge si vols deixar-hi el vehicle.",
+    faq_q6:"Feu aniversaris, comiats o esdeveniments d'empresa?", faq_a6:"Sí. Muntem curses de grup amb cronometratge i tenim flota Fórmula pensada per a esdeveniments. Escriu-nos per WhatsApp i et preparem una proposta a mida.",
+    faq_q7:"Cal reservar?", faq_a7:"Obrim cada dia de 10:00 a 19:00 (i fins a les 22:00 amb cita prèvia). Caps de setmana i festius et recomanem reservar per WhatsApp per assegurar la tanda i evitar esperes.",
+    faq_q8:"On sou exactament?", faq_a8:"A la carretera C-14, km 174, al Pla de Sant Tirs (Lleida), en ple Pirineu i a només 15 minuts d'Andorra. Tens el mapa i la ruta més avall.",
+    cont_eyebrow:"Com arribar", cont_h2:"ENS VEIEM<br>A LA GRAELLA", cont_p:"Reserva la teva tanda per WhatsApp en 30 segons. Et confirmem hora i kart a l'instant.", cont_wa:"WhatsApp · reserves", cont_tel:"Telèfon", cont_dir:"Adreça", cont_horari:"Horari", cont_horari_v:"Cada dia · 10:00 – 19:00", cont_horari_v2:"De 19:00 a 22:00 amb cita prèvia",
+    footer_tag:"El circuit de karting a l'aire lliure més llarg de Catalunya. 1.400 m, 4 traçats i karts per a tota la família, al Pirineu de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacte", footer_circuit:"El circuit", footer_made:"Fet amb asfalt, muntanya i molta velocitat.",
+    order_label:"La teva reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar per WhatsApp",
+    wa_greeting:"Hola! Vull reservar a Karting el Pla:", wa_total:"Total"
+  },
+  es: {
+    nav_pista:"La pista", nav_tandas:"Tandas y precios", nav_motos:"Motos", nav_resenas:"Reseñas", nav_contacto:"Cómo llegar", nav_reservar:"Reservar",
+    hero_eyebrow:"Pirineo de Lleida · a 15 min de Andorra", hero_h1:"1.400 METROS.<br><span class='text-accent'>TÚ</span> CONTRA EL CRONO.", hero_sub:"El circuito de karting al aire libre más largo de Catalunya. Del primer kart a los 7 años al Rotax de 30 CV. Reserva tu tanda y baja a pista.", hero_cta1:"Monta tu reserva", hero_cta2:"Descubre el circuito", hero_trust_google:"en Google · 400+ reseñas", hero_trust_trazados:"4 trazados", hero_trust_cv:"hasta 30 CV",
+    stat1:"de asfalto · el más largo de Catalunya", stat2:"de ancho · adelantamientos de verdad", stat3:"trazados alternativos (600–1.400 m)", stat4:"por tanda, a fondo",
+    exp_eyebrow:"La sensación", exp_h2:"ESTO NO ES UN KARTING DE CENTRO COMERCIAL", exp_p:"Aquí corres al aire libre, entre montañas y junto al río, sobre un trazado de verdad: una zona rápida para soltar el pie y una zona técnica que separa a los valientes de los rápidos. Te ponemos casco, mono y guantes. El resto lo pones tú.", exp_f1t:"Zona rápida + zona técnica", exp_f1d:"1.400 m que premian frenada tardía y trazada limpia.", exp_f2t:"Cronometraje profesional", exp_f2d:"Doble banda compatible con Alfano y MyChron. Tu vuelta rápida, medida.", exp_f3t:"Seguridad de federación", exp_f3d:"Protecciones y zonas de escapatoria en todos los trazados.", exp_caption:"Así se ve desde el asiento",
+    tandas_eyebrow:"Tandas y precios", tandas_h2:"ELIGE TU KART.<br>ELIGE TUS TANDAS.", tandas_p:"<span class='text-fg font-semibold'>1 tanda = 10 minutos</span> en pista. Cuantas más tandas reservas, más barata sale cada una. Precios por persona, equipo de seguridad incluido.", tandas_helper:"Toca las tandas que quieras de cada kart y monta tu reserva", tandas_formula:"¿Grupo, cumpleaños o evento de empresa? Tenemos flota <span class='text-fg font-medium'>Fórmula</span> para carreras de grupo. Escríbenos y lo montamos.",
+    tanda_word:"tanda", tanda_word_pl:"tandas", badge_popular:"El más pedido",
+    k_junior_sub:"Para peques de 7 a 12 años", k_superkart_sub:"+12 años y adultos", k_superbi_sub:"2 adultos, o adulto + niño (≥130 cm)", k_racing_sub:"+16 años · el salto a la velocidad", k_comp_sub:"Adultos con experiencia", k_supercomp_sub:"Solo nivel alto · lo más bestia",
+    motos_eyebrow:"Motos y PitBikes", motos_h2:"¿LO TUYO ES SOBRE DOS RUEDAS?", motos_p:"Super Motard y PitBikes sobre el mismo trazado, con +250 m de tierra enlazable. Equipo (mono + casco) por 20€.", moto_supermotard_sub:"IMR SK1 250cc · tanda de 15 min", moto_pitbike_sub:"PGR Arrow 125 · tanda de 10 min", moto_pitcross_sub:"PGR Arrow 125 · tanda de 10 min", moto_add:"Añadir a la reserva",
+    vehiculo_h:"¿VIENES CON TU KART O MOTO?", vehiculo_p:"Tiquet de pista con taller, agua, luz y aire incluidos. Trae tu vehículo y rueda a tu ritmo.", vehiculo_4h:"4 horas", vehiculo_dia:"Día completo",
+    action_h:"DIEZ MINUTOS QUE NO SE OLVIDAN", action_cta:"Monta tu reserva",
+    res_eyebrow:"Lo que dicen los pilotos", res_h2:"4,2★ Y MÁS DE<br>400 RESEÑAS", res_google:"Opiniones reales en Google", res_1:"\"Uno de los mejores circuitos en los que he rodado. Tiene una zona rápida para soltarte y otra muy técnica que engancha. Volveremos seguro.\"", res_1m:"Local Guide · hace 3 semanas", res_2:"\"El trato del personal es de 10, te hacen sentir de la familia. Fuimos con niños y adultos y había kart para cada uno. El entorno, espectacular.\"", res_2m:"hace 1 mes", res_3:"\"Circuito largo de verdad y a 15 min de Andorra, una pasada de sitio. Días de mucha gente toca esperar entre tandas, pero la conducción lo vale.\"", res_3m:"hace 2 meses", res_seeall:"Ver todas las reseñas en Google",
+    faq_eyebrow:"Antes de venir", faq_h2:"PREGUNTAS FRECUENTES",
+    faq_q1:"¿Cuánto dura una tanda?", faq_a1:"Una tanda son 10 minutos en pista, a fondo. Las de Super Motard duran 15 minutos. Cuantas más tandas reservas de golpe, más barato sale cada una.",
+    faq_q2:"¿Hay karts para niños?", faq_a2:"Sí. El kart Junior es para peques de 7 a 12 años. Y si quieres ir con un adulto, el SuperBi es biplaza (el niño debe medir al menos 130 cm).",
+    faq_q3:"¿Necesito experiencia o carnet?", faq_a3:"No para Junior, Super Kart, SuperBi ni Racing: te explicamos lo básico y a pista. Los karts de Competición y Súper Competición (Rotax) sí piden experiencia y buen nivel.",
+    faq_q4:"¿Qué me tengo que poner?", faq_a4:"Nosotros te damos casco, sotocasco, mono y guantes. Tú ven con ropa cómoda y zapato cerrado. Si llueve, tenemos monos impermeables: aquí se rueda igual.",
+    faq_q5:"¿Puedo venir con mi kart o moto?", faq_a5:"Claro. Tienes tiquet de pista de 4 horas (35€) o de día completo (60€), con taller, agua, luz y aire incluidos. También hay nave de pupilaje si quieres dejar el vehículo.",
+    faq_q6:"¿Hacéis cumpleaños, despedidas o eventos de empresa?", faq_a6:"Sí. Montamos carreras de grupo con cronometraje y tenemos flota Fórmula pensada para eventos. Escríbenos por WhatsApp y te preparamos una propuesta a medida.",
+    faq_q7:"¿Hace falta reservar?", faq_a7:"Abrimos todos los días de 10:00 a 19:00 (y hasta las 22:00 con cita previa). Fines de semana y festivos te recomendamos reservar por WhatsApp para asegurar la tanda y evitar esperas.",
+    faq_q8:"¿Dónde estáis exactamente?", faq_a8:"En la carretera C-14, km 174, en El Pla de Sant Tirs (Lleida), en pleno Pirineo y a solo 15 minutos de Andorra. Tienes el mapa y la ruta más abajo.",
+    cont_eyebrow:"Cómo llegar", cont_h2:"NOS VEMOS<br>EN LA PARRILLA", cont_p:"Reserva tu tanda por WhatsApp en 30 segundos. Te confirmamos hora y kart al momento.", cont_wa:"WhatsApp · reservas", cont_tel:"Teléfono", cont_dir:"Dirección", cont_horari:"Horario", cont_horari_v:"Todos los días · 10:00 – 19:00", cont_horari_v2:"De 19:00 a 22:00 con cita previa",
+    footer_tag:"El circuito de karting al aire libre más largo de Catalunya. 1.400 m, 4 trazados y karts para toda la familia, en el Pirineo de Lleida.", footer_c1:"Pista", footer_c2:"Info", footer_c3:"Contacto", footer_circuit:"El circuito", footer_made:"Hecho con asfalto, montaña y mucha velocidad.",
+    order_label:"Tu reserva", order_confirm:"Confirmar reserva", mobile_wa:"Reservar por WhatsApp",
+    wa_greeting:"¡Hola! Quiero reservar en Karting el Pla:", wa_total:"Total"
+  },
+  en: {
+    nav_pista:"The track", nav_tandas:"Sessions & prices", nav_motos:"Bikes", nav_resenas:"Reviews", nav_contacto:"Find us", nav_reservar:"Book",
+    hero_eyebrow:"Lleida Pyrenees · 15 min from Andorra", hero_h1:"1,400 METRES.<br><span class='text-accent'>YOU</span> VS THE CLOCK.", hero_sub:"The longest outdoor karting circuit in Catalonia. From your first kart at age 7 to the 30 hp Rotax. Book your session and hit the track.", hero_cta1:"Build your booking", hero_cta2:"Discover the circuit", hero_trust_google:"on Google · 400+ reviews", hero_trust_trazados:"4 layouts", hero_trust_cv:"up to 30 hp",
+    stat1:"of tarmac · the longest in Catalonia", stat2:"wide · real overtaking", stat3:"alternative layouts (600–1,400 m)", stat4:"per session, flat out",
+    exp_eyebrow:"The feeling", exp_h2:"THIS IS NO SHOPPING-MALL GO-KART TRACK", exp_p:"Here you race outdoors, between mountains and beside the river, on a real circuit: a fast section to open it up and a technical one that separates the brave from the quick. We give you helmet, suit and gloves. The rest is on you.", exp_f1t:"Fast section + technical section", exp_f1d:"1,400 m that reward late braking and a clean line.", exp_f2t:"Pro timing", exp_f2d:"Twin loop compatible with Alfano and MyChron. Your fast lap, measured.", exp_f3t:"Federation-grade safety", exp_f3d:"Barriers and run-off areas on every layout.", exp_caption:"This is the view from the seat",
+    tandas_eyebrow:"Sessions & prices", tandas_h2:"PICK YOUR KART.<br>PICK YOUR SESSIONS.", tandas_p:"<span class='text-fg font-semibold'>1 session = 10 minutes</span> on track. The more sessions you book, the cheaper each one. Prices per person, safety gear included.", tandas_helper:"Tap the sessions you want on each kart and build your booking", tandas_formula:"Group, birthday or company event? We have a <span class='text-fg font-medium'>Formula</span> fleet for group races. Message us and we'll sort it.",
+    tanda_word:"session", tanda_word_pl:"sessions", badge_popular:"Most popular",
+    k_junior_sub:"For kids aged 7 to 12", k_superkart_sub:"12+ and adults", k_superbi_sub:"2 adults, or adult + child (≥130 cm)", k_racing_sub:"16+ · the step up in speed", k_comp_sub:"Experienced adults", k_supercomp_sub:"Advanced level only · the wildest",
+    motos_eyebrow:"Bikes & PitBikes", motos_h2:"MORE OF A TWO-WHEELS PERSON?", motos_p:"Super Motard and PitBikes on the same circuit, with +250 m of linkable dirt. Gear (suit + helmet) for €20.", moto_supermotard_sub:"IMR SK1 250cc · 15-min session", moto_pitbike_sub:"PGR Arrow 125 · 10-min session", moto_pitcross_sub:"PGR Arrow 125 · 10-min session", moto_add:"Add to booking",
+    vehiculo_h:"BRINGING YOUR OWN KART OR BIKE?", vehiculo_p:"Track ticket with workshop, water, power and air included. Bring your vehicle and ride at your own pace.", vehiculo_4h:"4 hours", vehiculo_dia:"Full day",
+    action_h:"TEN MINUTES YOU WON'T FORGET", action_cta:"Build your booking",
+    res_eyebrow:"What drivers say", res_h2:"4.2★ AND OVER<br>400 REVIEWS", res_google:"Real reviews on Google", res_1:"\"One of the best circuits I've driven. A fast section to let loose and a very technical one that hooks you. We'll definitely be back.\"", res_1m:"Local Guide · 3 weeks ago", res_2:"\"The staff are a 10, they make you feel part of the family. We went with kids and adults and there was a kart for everyone. Stunning setting.\"", res_2m:"1 month ago", res_3:"\"A genuinely long circuit and 15 min from Andorra, an amazing spot. On busy days you wait between sessions, but the driving is worth it.\"", res_3m:"2 months ago", res_seeall:"See all reviews on Google",
+    faq_eyebrow:"Before you come", faq_h2:"FREQUENTLY ASKED",
+    faq_q1:"How long is a session?", faq_a1:"A session is 10 minutes on track, flat out. Super Motard sessions are 15 minutes. The more sessions you book at once, the cheaper each one.",
+    faq_q2:"Are there karts for kids?", faq_a2:"Yes. The Junior kart is for kids aged 7 to 12. And if you want to ride with an adult, the SuperBi is a two-seater (the child must be at least 130 cm).",
+    faq_q3:"Do I need experience or a licence?", faq_a3:"Not for Junior, Super Kart, SuperBi or Racing: we explain the basics and off you go. The Competición and Súper Competición karts (Rotax) do require experience and a good level.",
+    faq_q4:"What should I wear?", faq_a4:"We give you helmet, balaclava, suit and gloves. You just come in comfortable clothes and closed shoes. If it rains, we have waterproof suits: we ride anyway.",
+    faq_q5:"Can I come with my own kart or bike?", faq_a5:"Of course. There's a track ticket for 4 hours (€35) or a full day (€60), with workshop, water, power and air included. There's also storage if you want to leave your vehicle here.",
+    faq_q6:"Do you do birthdays, stag dos or company events?", faq_a6:"Yes. We run group races with timing and have a Formula fleet built for events. Message us on WhatsApp and we'll put together a tailored proposal.",
+    faq_q7:"Do I need to book?", faq_a7:"We open every day from 10:00 to 19:00 (and until 22:00 by appointment). On weekends and holidays we recommend booking via WhatsApp to secure your session and avoid waits.",
+    faq_q8:"Where exactly are you?", faq_a8:"On the C-14 road, km 174, in El Pla de Sant Tirs (Lleida), deep in the Pyrenees and just 15 minutes from Andorra. You'll find the map and route below.",
+    cont_eyebrow:"Find us", cont_h2:"SEE YOU<br>ON THE GRID", cont_p:"Book your session on WhatsApp in 30 seconds. We confirm time and kart right away.", cont_wa:"WhatsApp · bookings", cont_tel:"Phone", cont_dir:"Address", cont_horari:"Opening hours", cont_horari_v:"Every day · 10:00 – 19:00", cont_horari_v2:"19:00 to 22:00 by appointment",
+    footer_tag:"The longest outdoor karting circuit in Catalonia. 1,400 m, 4 layouts and karts for the whole family, in the Lleida Pyrenees.", footer_c1:"Track", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"The circuit", footer_made:"Made with tarmac, mountains and a lot of speed.",
+    order_label:"Your booking", order_confirm:"Confirm booking", mobile_wa:"Book on WhatsApp",
+    wa_greeting:"Hi! I'd like to book at Karting el Pla:", wa_total:"Total"
+  },
+  fr: {
+    nav_pista:"La piste", nav_tandas:"Sessions & tarifs", nav_motos:"Motos", nav_resenas:"Avis", nav_contacto:"Accès", nav_reservar:"Réserver",
+    hero_eyebrow:"Pyrénées de Lleida · à 15 min d'Andorre", hero_h1:"1 400 MÈTRES.<br><span class='text-accent'>TOI</span> CONTRE LE CHRONO.", hero_sub:"Le circuit de karting en plein air le plus long de Catalogne. Du premier kart à 7 ans au Rotax de 30 ch. Réserve ta session et descends en piste.", hero_cta1:"Compose ta réservation", hero_cta2:"Découvre le circuit", hero_trust_google:"sur Google · 400+ avis", hero_trust_trazados:"4 tracés", hero_trust_cv:"jusqu'à 30 ch",
+    stat1:"d'asphalte · le plus long de Catalogne", stat2:"de large · de vrais dépassements", stat3:"tracés alternatifs (600–1 400 m)", stat4:"par session, à fond",
+    exp_eyebrow:"La sensation", exp_h2:"CE N'EST PAS UN KARTING DE CENTRE COMMERCIAL", exp_p:"Ici tu roules en plein air, entre montagnes et au bord de la rivière, sur un vrai circuit : une zone rapide pour lâcher les chevaux et une zone technique qui sépare les courageux des rapides. On te donne casque, combinaison et gants. Le reste, c'est toi.", exp_f1t:"Zone rapide + zone technique", exp_f1d:"1 400 m qui récompensent le freinage tardif et la trajectoire propre.", exp_f2t:"Chronométrage pro", exp_f2d:"Double boucle compatible Alfano et MyChron. Ton meilleur tour, mesuré.", exp_f3t:"Sécurité homologuée", exp_f3d:"Protections et zones de dégagement sur tous les tracés.", exp_caption:"Voilà la vue depuis le siège",
+    tandas_eyebrow:"Sessions & tarifs", tandas_h2:"CHOISIS TON KART.<br>CHOISIS TES SESSIONS.", tandas_p:"<span class='text-fg font-semibold'>1 session = 10 minutes</span> en piste. Plus tu réserves de sessions, moins chacune coûte cher. Tarifs par personne, équipement de sécurité inclus.", tandas_helper:"Touche les sessions que tu veux sur chaque kart et compose ta réservation", tandas_formula:"Groupe, anniversaire ou événement d'entreprise ? Nous avons une flotte <span class='text-fg font-medium'>Formule</span> pour les courses de groupe. Écris-nous et on s'occupe de tout.",
+    tanda_word:"session", tanda_word_pl:"sessions", badge_popular:"Le plus demandé",
+    k_junior_sub:"Pour les enfants de 7 à 12 ans", k_superkart_sub:"+12 ans et adultes", k_superbi_sub:"2 adultes, ou adulte + enfant (≥130 cm)", k_racing_sub:"+16 ans · le passage à la vitesse", k_comp_sub:"Adultes expérimentés", k_supercomp_sub:"Niveau élevé seulement · le plus bestial",
+    motos_eyebrow:"Motos & PitBikes", motos_h2:"PLUTÔT DEUX-ROUES ?", motos_p:"Super Motard et PitBikes sur le même circuit, avec +250 m de terre raccordable. Équipement (combinaison + casque) pour 20€.", moto_supermotard_sub:"IMR SK1 250cc · session de 15 min", moto_pitbike_sub:"PGR Arrow 125 · session de 10 min", moto_pitcross_sub:"PGR Arrow 125 · session de 10 min", moto_add:"Ajouter à la réservation",
+    vehiculo_h:"TU VIENS AVEC TON KART OU TA MOTO ?", vehiculo_p:"Ticket de piste avec atelier, eau, électricité et air inclus. Apporte ton véhicule et roule à ton rythme.", vehiculo_4h:"4 heures", vehiculo_dia:"Journée complète",
+    action_h:"DIX MINUTES INOUBLIABLES", action_cta:"Compose ta réservation",
+    res_eyebrow:"Ce que disent les pilotes", res_h2:"4,2★ ET PLUS DE<br>400 AVIS", res_google:"Avis réels sur Google", res_1:"\"L'un des meilleurs circuits que j'aie roulés. Une zone rapide pour se lâcher et une autre très technique qui accroche. On reviendra, c'est sûr.\"", res_1m:"Local Guide · il y a 3 semaines", res_2:"\"Le personnel est au top, on se sent en famille. On y est allés avec enfants et adultes et il y avait un kart pour chacun. Le cadre, magnifique.\"", res_2m:"il y a 1 mois", res_3:"\"Circuit vraiment long et à 15 min d'Andorre, un endroit génial. Les jours de forte affluence il faut attendre entre les sessions, mais le pilotage vaut le coup.\"", res_3m:"il y a 2 mois", res_seeall:"Voir tous les avis sur Google",
+    faq_eyebrow:"Avant de venir", faq_h2:"QUESTIONS FRÉQUENTES",
+    faq_q1:"Combien de temps dure une session ?", faq_a1:"Une session, c'est 10 minutes en piste, à fond. Celles de Super Motard durent 15 minutes. Plus tu réserves de sessions d'un coup, moins chacune coûte cher.",
+    faq_q2:"Y a-t-il des karts pour enfants ?", faq_a2:"Oui. Le kart Junior est pour les enfants de 7 à 12 ans. Et si tu veux rouler avec un adulte, le SuperBi est biplace (l'enfant doit mesurer au moins 130 cm).",
+    faq_q3:"Faut-il de l'expérience ou un permis ?", faq_a3:"Non pour Junior, Super Kart, SuperBi ni Racing : on t'explique les bases et c'est parti. Les karts Competición et Súper Competición (Rotax) demandent de l'expérience et un bon niveau.",
+    faq_q4:"Que dois-je porter ?", faq_a4:"On te donne casque, cagoule, combinaison et gants. Toi, viens avec des vêtements confortables et des chaussures fermées. S'il pleut, on a des combinaisons imperméables : on roule quand même.",
+    faq_q5:"Puis-je venir avec mon kart ou ma moto ?", faq_a5:"Bien sûr. Il y a un ticket de piste de 4 heures (35€) ou journée complète (60€), avec atelier, eau, électricité et air inclus. Il y a aussi un local si tu veux laisser ton véhicule ici.",
+    faq_q6:"Faites-vous anniversaires, EVG ou événements d'entreprise ?", faq_a6:"Oui. On organise des courses de groupe avec chronométrage et on a une flotte Formule pensée pour les événements. Écris-nous sur WhatsApp et on te prépare une proposition sur mesure.",
+    faq_q7:"Faut-il réserver ?", faq_a7:"On ouvre tous les jours de 10h00 à 19h00 (et jusqu'à 22h00 sur rendez-vous). Le week-end et les jours fériés, on te conseille de réserver via WhatsApp pour assurer ta session et éviter l'attente.",
+    faq_q8:"Où êtes-vous exactement ?", faq_a8:"Sur la route C-14, km 174, à El Pla de Sant Tirs (Lleida), en plein cœur des Pyrénées et à seulement 15 minutes d'Andorre. La carte et l'itinéraire sont plus bas.",
+    cont_eyebrow:"Accès", cont_h2:"ON SE VOIT<br>SUR LA GRILLE", cont_p:"Réserve ta session sur WhatsApp en 30 secondes. On confirme l'heure et le kart aussitôt.", cont_wa:"WhatsApp · réservations", cont_tel:"Téléphone", cont_dir:"Adresse", cont_horari:"Horaires", cont_horari_v:"Tous les jours · 10:00 – 19:00", cont_horari_v2:"De 19:00 à 22:00 sur rendez-vous",
+    footer_tag:"Le circuit de karting en plein air le plus long de Catalogne. 1 400 m, 4 tracés et des karts pour toute la famille, dans les Pyrénées de Lleida.", footer_c1:"Piste", footer_c2:"Info", footer_c3:"Contact", footer_circuit:"Le circuit", footer_made:"Fait d'asphalte, de montagne et de beaucoup de vitesse.",
+    order_label:"Ta réservation", order_confirm:"Confirmer la réservation", mobile_wa:"Réserver sur WhatsApp",
+    wa_greeting:"Bonjour ! Je souhaite réserver à Karting el Pla :", wa_total:"Total"
+  },
+  de: {
+    nav_pista:"Die Strecke", nav_tandas:"Sessions & Preise", nav_motos:"Bikes", nav_resenas:"Bewertungen", nav_contacto:"Anfahrt", nav_reservar:"Buchen",
+    hero_eyebrow:"Pyrenäen von Lleida · 15 Min. von Andorra", hero_h1:"1.400 METER.<br><span class='text-accent'>DU</span> GEGEN DIE UHR.", hero_sub:"Die längste Outdoor-Kartstrecke Kataloniens. Vom ersten Kart mit 7 Jahren bis zum 30-PS-Rotax. Buche deine Session und ab auf die Strecke.", hero_cta1:"Buchung zusammenstellen", hero_cta2:"Strecke entdecken", hero_trust_google:"auf Google · 400+ Bewertungen", hero_trust_trazados:"4 Streckenführungen", hero_trust_cv:"bis zu 30 PS",
+    stat1:"Asphalt · die längste Kataloniens", stat2:"breit · echte Überholmanöver", stat3:"alternative Layouts (600–1.400 m)", stat4:"pro Session, Vollgas",
+    exp_eyebrow:"Das Gefühl", exp_h2:"DAS IST KEINE KARTBAHN IM EINKAUFSZENTRUM", exp_p:"Hier fährst du im Freien, zwischen Bergen und am Fluss, auf einer echten Strecke: ein schneller Abschnitt zum Aufdrehen und ein technischer, der die Mutigen von den Schnellen trennt. Helm, Overall und Handschuhe bekommst du von uns. Den Rest gibst du.", exp_f1t:"Schneller + technischer Abschnitt", exp_f1d:"1.400 m, die spätes Bremsen und saubere Linie belohnen.", exp_f2t:"Profi-Zeitnahme", exp_f2d:"Doppelschleife kompatibel mit Alfano und MyChron. Deine schnelle Runde, gemessen.", exp_f3t:"Sicherheit nach Verbandsnorm", exp_f3d:"Schutzbarrieren und Auslaufzonen auf allen Layouts.", exp_caption:"So sieht es vom Sitz aus",
+    tandas_eyebrow:"Sessions & Preise", tandas_h2:"WÄHL DEIN KART.<br>WÄHL DEINE SESSIONS.", tandas_p:"<span class='text-fg font-semibold'>1 Session = 10 Minuten</span> auf der Strecke. Je mehr Sessions du buchst, desto günstiger wird jede. Preise pro Person, Sicherheitsausrüstung inklusive.", tandas_helper:"Tippe die gewünschten Sessions je Kart an und stell deine Buchung zusammen", tandas_formula:"Gruppe, Geburtstag oder Firmenevent? Wir haben eine <span class='text-fg font-medium'>Formel</span>-Flotte für Gruppenrennen. Schreib uns und wir regeln das.",
+    tanda_word:"Session", tanda_word_pl:"Sessions", badge_popular:"Am beliebtesten",
+    k_junior_sub:"Für Kinder von 7 bis 12 Jahren", k_superkart_sub:"+12 Jahre und Erwachsene", k_superbi_sub:"2 Erwachsene oder Erwachsener + Kind (≥130 cm)", k_racing_sub:"+16 Jahre · der Schritt zur Geschwindigkeit", k_comp_sub:"Erfahrene Erwachsene", k_supercomp_sub:"Nur hohes Niveau · das Heftigste",
+    motos_eyebrow:"Bikes & PitBikes", motos_h2:"EHER AUF ZWEI RÄDERN?", motos_p:"Super Motard und PitBikes auf derselben Strecke, mit +250 m verbindbarem Schotter. Ausrüstung (Overall + Helm) für 20€.", moto_supermotard_sub:"IMR SK1 250cc · 15-Min-Session", moto_pitbike_sub:"PGR Arrow 125 · 10-Min-Session", moto_pitcross_sub:"PGR Arrow 125 · 10-Min-Session", moto_add:"Zur Buchung hinzufügen",
+    vehiculo_h:"KOMMST DU MIT EIGENEM KART ODER BIKE?", vehiculo_p:"Streckenticket mit Werkstatt, Wasser, Strom und Luft inklusive. Bring dein Fahrzeug und fahr in deinem Tempo.", vehiculo_4h:"4 Stunden", vehiculo_dia:"Ganzer Tag",
+    action_h:"ZEHN MINUTEN, DIE MAN NICHT VERGISST", action_cta:"Buchung zusammenstellen",
+    res_eyebrow:"Was Fahrer sagen", res_h2:"4,2★ UND ÜBER<br>400 BEWERTUNGEN", res_google:"Echte Bewertungen auf Google", res_1:"\"Eine der besten Strecken, die ich gefahren bin. Ein schneller Abschnitt zum Aufdrehen und ein sehr technischer, der süchtig macht. Wir kommen sicher wieder.\"", res_1m:"Local Guide · vor 3 Wochen", res_2:"\"Das Personal ist eine 10, man fühlt sich wie Familie. Wir waren mit Kindern und Erwachsenen da und es gab für jeden ein Kart. Die Umgebung: spektakulär.\"", res_2m:"vor 1 Monat", res_3:"\"Wirklich lange Strecke und 15 Min. von Andorra, ein toller Ort. An vollen Tagen wartet man zwischen den Sessions, aber das Fahren ist es wert.\"", res_3m:"vor 2 Monaten", res_seeall:"Alle Bewertungen auf Google ansehen",
+    faq_eyebrow:"Bevor du kommst", faq_h2:"HÄUFIGE FRAGEN",
+    faq_q1:"Wie lange dauert eine Session?", faq_a1:"Eine Session sind 10 Minuten auf der Strecke, Vollgas. Super-Motard-Sessions dauern 15 Minuten. Je mehr Sessions du auf einmal buchst, desto günstiger wird jede.",
+    faq_q2:"Gibt es Karts für Kinder?", faq_a2:"Ja. Das Junior-Kart ist für Kinder von 7 bis 12 Jahren. Und wenn du mit einem Erwachsenen fahren willst, ist das SuperBi ein Zweisitzer (das Kind muss mindestens 130 cm groß sein).",
+    faq_q3:"Brauche ich Erfahrung oder einen Führerschein?", faq_a3:"Nicht für Junior, Super Kart, SuperBi oder Racing: Wir erklären das Wichtigste und los geht's. Die Karts Competición und Súper Competición (Rotax) erfordern Erfahrung und gutes Niveau.",
+    faq_q4:"Was soll ich anziehen?", faq_a4:"Helm, Sturmhaube, Overall und Handschuhe bekommst du von uns. Komm einfach in bequemer Kleidung und geschlossenen Schuhen. Bei Regen haben wir wasserdichte Overalls: hier wird trotzdem gefahren.",
+    faq_q5:"Kann ich mit eigenem Kart oder Bike kommen?", faq_a5:"Klar. Es gibt ein Streckenticket für 4 Stunden (35€) oder einen ganzen Tag (60€), mit Werkstatt, Wasser, Strom und Luft inklusive. Es gibt auch einen Stellplatz, falls du dein Fahrzeug hier lassen willst.",
+    faq_q6:"Macht ihr Geburtstage, Junggesellenabschiede oder Firmenevents?", faq_a6:"Ja. Wir veranstalten Gruppenrennen mit Zeitnahme und haben eine Formel-Flotte für Events. Schreib uns auf WhatsApp und wir erstellen dir ein maßgeschneidertes Angebot.",
+    faq_q7:"Muss ich reservieren?", faq_a7:"Wir öffnen täglich von 10:00 bis 19:00 (und bis 22:00 nach Vereinbarung). An Wochenenden und Feiertagen empfehlen wir, per WhatsApp zu reservieren, um deine Session zu sichern und Wartezeiten zu vermeiden.",
+    faq_q8:"Wo genau seid ihr?", faq_a8:"An der Straße C-14, km 174, in El Pla de Sant Tirs (Lleida), mitten in den Pyrenäen und nur 15 Minuten von Andorra. Karte und Route findest du weiter unten.",
+    cont_eyebrow:"Anfahrt", cont_h2:"WIR SEHEN UNS<br>IN DER STARTAUFSTELLUNG", cont_p:"Buche deine Session per WhatsApp in 30 Sekunden. Wir bestätigen Zeit und Kart sofort.", cont_wa:"WhatsApp · Buchungen", cont_tel:"Telefon", cont_dir:"Adresse", cont_horari:"Öffnungszeiten", cont_horari_v:"Täglich · 10:00 – 19:00", cont_horari_v2:"19:00 bis 22:00 nach Vereinbarung",
+    footer_tag:"Die längste Outdoor-Kartstrecke Kataloniens. 1.400 m, 4 Layouts und Karts für die ganze Familie, in den Pyrenäen von Lleida.", footer_c1:"Strecke", footer_c2:"Info", footer_c3:"Kontakt", footer_circuit:"Die Strecke", footer_made:"Gemacht aus Asphalt, Bergen und viel Geschwindigkeit.",
+    order_label:"Deine Buchung", order_confirm:"Buchung bestätigen", mobile_wa:"Auf WhatsApp buchen",
+    wa_greeting:"Hallo! Ich möchte bei Karting el Pla buchen:", wa_total:"Gesamt"
+  }
+};
+
+const WA_NUMBER = "34610792532";
+let curLang = "ca";
+
+/* ---------- apply language ---------- */
+function applyLang(lang){
+  if(!I18N[lang]) lang = 'es';
+  const d = I18N[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent=d[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{ const k=el.getAttribute('data-i18n-html'); if(d[k]!=null) el.innerHTML=d[k]; });
+  document.getElementById('langCur').textContent = lang.toUpperCase();
+  localStorage.setItem('kep_lang', lang);
+  curLang = lang;
+  renderOrder();
+}
+
+/* ---------- ORDER / configurator ---------- */
+const order = new Map(); // kartId -> {name, tandas, price, moto}
+function fmtTanda(n, lang){ const d=I18N[lang]||I18N.es; return (n>1? d.tanda_word_pl : d.tanda_word); }
+function orderTotal(){ let t=0; order.forEach(i=>t+=i.price); return t; }
+
+function renderOrder(){
+  const bar = document.getElementById('orderBar');
+  const countEl = document.getElementById('orderCount');
+  const totalEl = document.getElementById('orderTotal');
+  const itemsEl = document.getElementById('orderItems');
+  const d = I18N[curLang]||I18N.es;
+  countEl.textContent = order.size;
+  totalEl.textContent = orderTotal();
+  // items list
+  let html = '';
+  order.forEach((it, id)=>{
+    html += `<div class="flex items-center justify-between gap-3 py-2 border-b border-line last:border-0 text-sm">
+      <span class="min-w-0 truncate"><span class="font-semibold">${it.name}</span> <span class="text-muted">· ${it.tandas} ${fmtTanda(it.tandas, curLang)}</span></span>
+      <span class="flex items-center gap-3 shrink-0"><span class="font-display tnum">${it.price}€</span>
+      <button data-remove="${id}" class="text-subtle hover:text-accent transition-colors"><i data-lucide="x" class="size-4"></i></button></span></div>`;
+  });
+  itemsEl.innerHTML = html;
+  // confirm link
+  const conf = document.getElementById('orderConfirm');
+  if(order.size>0){
+    let lines = [];
+    order.forEach(it=>{ lines.push(`• ${it.name} · ${it.tandas} ${fmtTanda(it.tandas, curLang)} · ${it.price}€`); });
+    const msg = `${d.wa_greeting}\n${lines.join('\n')}\n${d.wa_total}: ${orderTotal()}€`;
+    conf.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    bar.classList.add('show');
+    document.getElementById('mobileWA').style.display='none';
+  } else {
+    bar.classList.remove('show');
+    document.getElementById('orderItems').classList.add('hidden');
+    document.getElementById('orderChev').style.transform='';
+    const mWA = document.getElementById('mobileWA'); if(mWA) mWA.style.display='';
+  }
+  if(window.lucide) lucide.createIcons();
+}
+
+function setKart(id, name, tandas, price, moto){
+  const cur = order.get(id);
+  if(cur && cur.tandas===tandas){ order.delete(id); }
+  else { order.set(id, {name, tandas, price, moto:!!moto}); }
+}
+
+/* ---------- init after DOM ---------- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  lucide.createIcons();
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // language: stored or browser
+  let lang = localStorage.getItem('kep_lang');
+  if(!lang){ const n=(navigator.language||'es').slice(0,2).toLowerCase(); lang = I18N[n]?n:'es'; }
+  applyLang(lang);
+
+  // lang menu
+  const langBtn=document.getElementById('langBtn'), langMenu=document.getElementById('langMenu');
+  langBtn.addEventListener('click', e=>{ e.stopPropagation(); langMenu.classList.toggle('open'); });
+  document.addEventListener('click', ()=> langMenu.classList.remove('open'));
+  document.querySelectorAll('.lang-opt').forEach(b=> b.addEventListener('click', ()=>{ applyLang(b.dataset.lang); langMenu.classList.remove('open'); }));
+
+  // tanda buttons (karts)
+  document.querySelectorAll('.price-grid[data-kart]').forEach(grid=>{
+    const id = grid.dataset.kart, name = grid.dataset.name;
+    grid.querySelectorAll('.tanda-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const tandas = +btn.dataset.tandas, price = +btn.dataset.price;
+        setKart(id, name, tandas, price, false);
+        grid.querySelectorAll('.tanda-btn').forEach(b=> b.classList.remove('sel'));
+        if(order.has(id)) btn.classList.add('sel');
+        renderOrder();
+      });
+    });
+  });
+  // moto add buttons
+  document.querySelectorAll('.add-btn[data-kart]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id=btn.dataset.kart, name=btn.dataset.name, tandas=+btn.dataset.tandas, price=+btn.dataset.price;
+      setKart(id, name, tandas, price, true);
+      btn.classList.toggle('sel', order.has(id));
+      renderOrder();
+    });
+  });
+
+  // order bar interactions
+  document.getElementById('orderToggle').addEventListener('click', ()=>{
+    const items=document.getElementById('orderItems'); const chev=document.getElementById('orderChev');
+    const willShow = items.classList.contains('hidden');
+    items.classList.toggle('hidden', !willShow);
+    chev.style.transform = willShow ? 'rotate(180deg)' : '';
+  });
+  document.getElementById('orderClear').addEventListener('click', ()=>{
+    order.clear();
+    document.querySelectorAll('.tanda-btn.sel,.add-btn.sel').forEach(b=> b.classList.remove('sel'));
+    renderOrder();
+  });
+  document.getElementById('orderItems').addEventListener('click', (e)=>{
+    const rm = e.target.closest('[data-remove]'); if(!rm) return;
+    const id = rm.getAttribute('data-remove'); order.delete(id);
+    document.querySelectorAll(`.price-grid[data-kart="${id}"] .tanda-btn, .add-btn[data-kart="${id}"]`).forEach(b=> b.classList.remove('sel'));
+    renderOrder();
+  });
+
+  // reveal
+  const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {rootMargin:'-60px'});
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  // nav bg
+  const nav=document.getElementById('nav');
+  const onScroll=()=>{ if(window.scrollY>24) nav.classList.add('bg-ink/85','backdrop-blur-md','border-line'); else nav.classList.remove('bg-ink/85','backdrop-blur-md','border-line'); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // counters
+  const sep=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  const cio=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(!e.isIntersecting) return; const el=e.target, to=+el.dataset.to;
+    if(reduce){ el.textContent=sep(to); cio.unobserve(el); return; }
+    const dur=1100, st=performance.now();
+    const tick=now=>{ const p=Math.min((now-st)/dur,1); el.textContent=sep(Math.round(to*(1-Math.pow(1-p,3)))); if(p<1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick); cio.unobserve(el); }); }, {rootMargin:'-40px'});
+  document.querySelectorAll('.count').forEach(c=> cio.observe(c));
+
+  /* ---------- HERO scroll-scrub ---------- */
+  const FRAMES = 61;
+  const path = i => `assets/frames/f-${String(i).padStart(3,'0')}.jpg`;
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  const heroSec = document.getElementById('top');
+  const imgs = []; let loaded = 0; let lastDrawn = -1;
+
+  function sizeCanvas(){
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    canvas.width = Math.round(canvas.clientWidth*dpr);
+    canvas.height = Math.round(canvas.clientHeight*dpr);
+    lastDrawn = -1;
+  }
+  function draw(idx){
+    const img = imgs[idx];
+    if(!img || !img.complete || !img.naturalWidth) return;
+    if(idx===lastDrawn) return; lastDrawn=idx;
+    const cw=canvas.width, ch=canvas.height, iw=img.naturalWidth, ih=img.naturalHeight;
+    const s=Math.max(cw/iw, ch/ih), w=iw*s, h=ih*s, x=(cw-w)/2, y=(ch-h)/2;
+    ctx.drawImage(img, x, y, w, h);
+  }
+  function currentIndex(){
+    const rect = heroSec.getBoundingClientRect();
+    const scrollable = heroSec.offsetHeight - window.innerHeight;
+    const p = scrollable>0 ? Math.min(Math.max(-rect.top/scrollable,0),1) : 0;
+    return Math.round(p*(FRAMES-1));
+  }
+  // preload
+  for(let i=1;i<=FRAMES;i++){
+    const im = new Image();
+    im.onload = ()=>{ loaded++; if(i===1){ sizeCanvas(); draw(0); } if(loaded===FRAMES){ draw(currentIndex()); } };
+    im.src = path(i); imgs[i-1]=im;
+  }
+  let ticking=false;
+  function onScrollHero(){ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ draw(currentIndex()); ticking=false; }); }
+  if(!reduce){
+    window.addEventListener('scroll', onScrollHero, {passive:true});
+  } else {
+    heroSec.style.height='100svh';
+  }
+  window.addEventListener('resize', ()=>{ sizeCanvas(); draw(currentIndex()); }, {passive:true});
+  sizeCanvas();
+});
+</script>
+</body>
+</html>
